@@ -1,0 +1,42 @@
+ALTER TABLE `products` ADD `sale_rate` FLOAT NULL DEFAULT NULL AFTER `product`; 
+ALTER TABLE `users` ADD `pin` INT NULL DEFAULT NULL AFTER `remember_token`; 
+UPDATE `users` SET `pin` = '3267' WHERE `users`.`id` = 1; 
+
+ALTER TABLE `users` ADD `role` VARCHAR(20) NULL DEFAULT NULL AFTER `id`; 
+
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `pin`, `created_at`, `updated_at`) VALUES (NULL, 'Operator', '9425854575', '9425854575', '2022-05-06 09:07:11', '$2y$10$/npW//0elRK6ab6vZPesp.ZvfpFOkD/hqaefpIF6D.cHhKyE6Jzpa', NULL, '3267', '2022-05-06 09:07:11', '2022-05-06 09:07:11'); 
+
+CREATE TABLE `cash_verifications` (
+  `id` int(11) NOT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0: Unverified, 1: Verified',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `cash_verifications` ADD PRIMARY KEY (`id`);
+ALTER TABLE `cash_verifications` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `cash_verifications` (`id`, `status`, `created_at`, `updated_at`) VALUES (NULL, '0', current_timestamp(), current_timestamp()); 
+
+ALTER TABLE `nozle_entries` ADD `cash_status` INT NULL DEFAULT NULL AFTER `note_1`; 
+UPDATE `nozle_entries` SET `cash_status`='0'; 
+
+
+CREATE TABLE `batches` (
+  `id` int(11) NOT NULL,
+  `entryIds` text DEFAULT NULL,
+  `total_cash_amount` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `batches` ADD PRIMARY KEY (`id`);
+ALTER TABLE `batches` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `nozles` ADD `orderNo` INT NULL DEFAULT NULL AFTER `status`; 
+
+ALTER TABLE `batches` ADD `realdatetime` DATETIME NULL DEFAULT NULL AFTER `total_cash_amount`; 
+
+ALTER TABLE `products` CHANGE `sale_rate` `sale_rate` DECIMAL(10,2) NULL DEFAULT NULL; 
+ALTER TABLE `products` ADD `orderNo` INT NULL DEFAULT NULL AFTER `sale_rate`; 
+...........................................................................
+.................................Updated...................................
+...........................................................................
