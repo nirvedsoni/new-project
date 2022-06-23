@@ -8,7 +8,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12" id="customerDiv">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title align-self-center m-1">Customer List</h4>
@@ -77,7 +77,7 @@
                                                 <td class="text-center">
                                                     <button title="Size" data-toggle="modal" data-target="#exampleModal"
                                                         class="btn btn-social btn-just-icon btn-sm btn-primary"
-                                                        onclick="getCustomer('{{ $items->cust_id }}');">
+                                                        onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}');">
                                                         size
                                                     </button>
                                                     <button title="Edit" data-toggle="modal" data-target="#exampleModal"
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6" id="sizeDiv" style="display:none;">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title align-self-center m-1" id="sizeList" >Size List </h4>
@@ -111,9 +111,9 @@
                                     </button> --}}
                                 </div>
                             @endif
-                            {{-- <div>
-                                <a href="{{ route('home.add') }}" class="btn btn-warning btn-round">Add New</a>
-                            </div> --}}
+                            <div>
+                                <button type="button" class="btn btn-warning btn-round" onclick="closeSizeDiv();">Close</button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <form action="" method="POST" id="sizeform">
@@ -161,24 +161,8 @@
                                                 <th scope="col" class="text-center">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="text-center text-danger">
-                                                <td colspan="5">Empty</td>
-                                            </tr>
-                                            @foreach ($sizeData as $key => $items)
-                                                <tr>
-                                                    <th scope="row">{{ $key + 1 }}</th>
-                                                    <td>{{ $items->size }}</td>
-                                                    <td>{{ $items->nos }}</td>
-                                                    <td>{{ $items->squareFeet }}</td>
-                                                    <td class="text-center">
-                                                        <a href="sizedelete/{{ $items->id }}"
-                                                            class="btn btn-social btn-just-icon btn-sm btn-danger">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                        <tbody id="customerSize">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -196,7 +180,26 @@
                 data: $('form').serialize(),
                 type: 'post',
                 success: function(result) {
-                    alert(result)
+                    // alert(result);
+                    if(result){
+                        swal({
+                            title: "Alert!", 
+                            text: "Data saved!", 
+                            type: "success"
+                        }).then(function(){ 
+                                getSizes($("#customerId").val(), '');
+                            }
+                        );
+                    }
+                    else{
+                        swal({
+                            title: "Alert!", 
+                            text: "Something went wrong!", 
+                            type: "error"
+                        }).then(function(){ 
+                            }
+                        );
+                    }
                 }
             })
 
@@ -205,6 +208,88 @@
         function getCustomer(cust_id) {
             $("#customerId").val(cust_id);
             document.getElementById("sizeList").innerHTML = "Size List of " + cust_id;
+        }
+
+        function getSizes(cust_id, customerName){
+            $("#customerDiv").removeClass("col-12");
+            $("#customerDiv").addClass("col-6");
+
+            $("#sizeDiv").show();
+            $("#customerId").val(cust_id);
+            if(customerName){
+                document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
+            }
+
+            $.ajax({
+                url: "{{route('home.getsizes')}}",
+                type: 'get',
+                data: { 'customerId':cust_id},
+                beforeSend: function() {
+                    
+                },
+                success: function(response) {
+                    $("#customerSize").html(response);
+                },
+                error: function(xhr) {
+                    
+                }
+            });
+        }
+
+        function deleteSize(id){
+            $.confirm({
+                title: 'Alert!',
+                content: 'Are you sure to delete size?',
+                buttons: {
+                    confirm: {
+                        text: 'Confirm',
+                        btnClass: 'btn-red',
+                        action: function(){
+                            $.ajax({
+                                url: "{{route('home.delete')}}",
+                                type: 'get',
+                                data: {'id':id},
+                                beforeSend: function() {
+
+                                },
+                                success: function(response) {
+                                    if(response == true){
+                                        swal({
+                                            title: "Alert!", 
+                                            text: "Size deleted!", 
+                                            type: "success"
+                                        }).then(function(){ 
+                                                getSizes($("#customerId").val(), '');
+                                            }
+                                        );
+                                    }else{
+                                        swal({
+                                            title: "Alert!", 
+                                            text: "Someting went wrong!", 
+                                            type: "error"
+                                        }).then(function(){ 
+                                            }
+                                        );
+                                    }
+                                },
+                                error: function(xhr) {
+                                    
+                                }
+                            });
+                        }
+                    },
+                    cancel: function () {}
+                }
+            });
+        }
+
+        function closeSizeDiv(){
+            $("#customerId").val('');
+
+            $("#customerDiv").removeClass("col-6");
+            $("#customerDiv").addClass("col-12");
+
+            $("#sizeDiv").hide();
         }
     </script>
 @endsection

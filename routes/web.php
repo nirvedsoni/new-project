@@ -62,7 +62,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('list', ['as' => 'home.list', 'uses' => 'customersController@show']);
         Route::post('store', ['as' => 'home.store', 'uses' => 'customersController@store']);
         Route::post('sizeStore', ['as' => 'home.sizeStore', 'uses' => 'sizesController@storee']);
-        Route::get('sizedelete/{id}', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
+        // Route::get('sizedelete/{id}', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
+        Route::get('sizedelete', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
+        Route::get('getsizes', ['as' => 'home.getsizes', 'uses' => 'sizesController@getsizes']);
         // Route::get('size', ['as' => 'home.list', 'uses' => 'sizesController@index']);
 
     }); 

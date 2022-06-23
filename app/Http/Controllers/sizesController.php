@@ -45,17 +45,17 @@ class sizesController extends Controller
         $sizeData->squareFeet=$squareFeet;
         $sizeData->customerId = $customerId;
         if($sizeData->save()){
-            $msg = "data inserted"; 
+            $msg = true; 
         }
         else{
-            $msg = "error";
+            $msg = false;
         }
 
         // DB::table('sizes')->insert(array($size=>'size', $nos=>'nos', $squareFeet=>'squareFeet')); 
 
         // $msg = "data inserted";
 
-        return $msg;
+        echo $msg;
         
     }
 
@@ -125,12 +125,39 @@ class sizesController extends Controller
      * @param  \App\size  $size
      * @return \Illuminate\Http\Response
      */
-    public function destroy(size $size,$id)
+    // public function destroy(size $size,$id)
+    public function destroy(Request $request)
     {
-        $id = size::where('id',$id)->delete();
+        $id = size::where('id',$request->id)->delete();
 
-        return redirect()->route('home.list');
+        echo true;
+        // return redirect()->route('home.list');
 
+    }
+
+    public function getsizes(Request $request){
+        $customerId = $request->customerId;
+
+        $sizes = Size::where("customerId",$customerId)->get();
+
+        $html = "";
+        if(count($sizes)){
+            foreach ($sizes as $key => $value) {
+                $html .= '<tr>
+                            <th scope="row">' . ($key + 1) . '</th>
+                            <td>' . $value->size . '</td>
+                            <td>' . $value->nos . '</td>
+                            <td>' . $value->squareFeet . '</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-social btn-just-icon btn-sm btn-danger" onclick="deleteSize(' . $value->id . ');">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>';
+            }
+        }
+
+        echo $html;
     }
 }
     
