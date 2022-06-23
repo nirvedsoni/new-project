@@ -247,62 +247,7 @@ The above copyright notice and this permission notice shall be included in all c
             $("#pinVerificationModel").modal("show");
         }
 
-        function verify_pin(){
-            var page = $("#page").val();
-            var pin = $("#pin").val();
 
-            if(!pin){
-                $("#pinError").show();
-                return false;
-            }
-            else{
-                $("#pinError").hide();
-            }
-
-            $.ajax({
-                url: "{{route('user.pin.verify')}}",
-                type: 'get',
-                data: { 'pin':pin},
-                beforeSend: function() {
-                    
-                },
-                success: function(response) {
-                    if (response == true) {
-                        $("#pinVerificationModel").modal("hide");
-                        
-                        if(page == 'delete_entry'){
-                            delete_entry();
-                        }
-                        if(page == 'product_page'){
-                            window.location.href = "{{route('product.list')}}";
-                        }
-                        if(page == 'nozle_page'){
-                            window.location.href = "{{route('nozle.list')}}";
-                        }
-
-                        var page_arr = page.split("__");
-                        if(page_arr[0] == 'delete_product'){
-                            deleteProduct(page_arr[1]);
-                        }
-                        if(page_arr[0] == 'delete_nozle'){
-                            deleteNozle(page_arr[1]);
-                        }
-                    } else {
-                        swal({
-                            title: "Alert!", 
-                            text: "Wrong pin!", 
-                            type: "error"
-                        }).then(function(){ 
-                                
-                            }
-                        );
-                    }
-                },
-                error: function(xhr) {
-                    
-                }
-            });
-        }
     </script>
     @stack('scripts')
 

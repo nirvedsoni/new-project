@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\customer;
+use App\size;
+use App\state;
+use App\city;
+
+
+
 use Illuminate\Http\Request;
 
 class customersController extends Controller
@@ -14,7 +20,7 @@ class customersController extends Controller
      */
     public function index()
     {
-        return view("nozleentry.add");
+        return view("master.customer.add");
 
     }
 
@@ -36,6 +42,19 @@ class customersController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'customerName' => ['required'],
+            'address' => ['required'],
+            'landmark' => ['required'],
+            'wallNo' => ['required'],
+            'state' => ['required'],
+            'City' => ['required'],
+            'advDate' => ['required'],
+            'wallRent' => ['required'],
+        ]);
+        
+        
         $custData = new customer;
 
         $custData->customerName=$request->input('customerName');
@@ -48,7 +67,7 @@ class customersController extends Controller
         $custData->wallRent=$request->input('wallRent');
         $custData->save();
 
-        $request->session()->flash('status', 'New Customer added '.$custData->customerName);
+        $request->session()->flash('cstatus', 'New Customer added '.$custData->customerName);
         // return redirect("home/list");
         return redirect()->route('home.list');
 
@@ -63,7 +82,11 @@ class customersController extends Controller
     public function show()
     {
         $data = customer::all();
-        return view('nozleentry.list',["data"=> $data]);
+        // return view('master.customer.list',["data"=> $data]);
+
+        $sizeData = size::all();
+        return view('master.customer.list',["sizeData"=> $sizeData, "data"=>$data]);
+
     }
 
     /**
@@ -98,5 +121,13 @@ class customersController extends Controller
     public function destroy(customer $customer)
     {
         //
+    }
+
+    function add(){
+
+        $Sdata = state::all();
+        $Cdata = city::all();
+
+        return view("master.customer.add",["sData"=> $Sdata, "cData"=> $Cdata]);
     }
 }   

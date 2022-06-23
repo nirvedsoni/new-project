@@ -200,7 +200,7 @@
                 if (response == true) {
                     swal({
                         title: "Alert!", 
-                        text: "Cash detail verified!", 
+                        text: "Cash detail verified!",  
                         type: "success"
                     }).then(function(){ 
                             location.reload();

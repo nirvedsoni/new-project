@@ -7,22 +7,20 @@ use App\NozleEntry;
 use App\Batch;
 use App\Product;
 use Illuminate\Support\Facades\DB;
+use App\customer;
+
 
 class ReportController extends Controller
 {
-    function comulativebatchreport(Request $request){
-        $searchFromDate = $request->searchFromDate;
-        $searchToDate = $request->searchToDate;
-        $reports = [];
+    function dealerreport(){
 
-        if($searchFromDate && $searchToDate){
-            $reports = Batch::selectRaw("GROUP_CONCAT(entryIds) as entryIds")->selectRaw("date(realdatetime) as realdatetime")->whereDate("realdatetime",">=",$searchFromDate)
-                            ->whereDate("realdatetime","<=",$searchToDate)
-                            ->orderBy("realdatetime","ASC")
-                            ->groupByRaw("date(realdatetime)")
-                            ->get();
-        }
+        $data = customer::all();
+        return view("report.dealerreport",["data"=> $data]);
+    }
+    
+    function totalreport(){
 
-        return view("report.comulativebatchreport", compact("reports","searchFromDate","searchToDate"));
+        $data = customer::all();
+        return view("report.totalreport",["data"=> $data]);
     }
 }
