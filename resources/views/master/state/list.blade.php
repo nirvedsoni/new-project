@@ -44,12 +44,13 @@
                                         <hr>
                                         <div class="row">
                                             <div class="container">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="height: 330px" >
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr class="text-primary">
-                                                                <th scope="col">Id</th>
+                                                                <th scope="col">S.No.</th>
                                                                 <th scope="col">State Name</th>
+                                                                <th class="text-center" scope="col">Delete</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -149,14 +150,15 @@
                                         <hr>
                                         <div class="row">
                                             <div class="container">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" style="height: 200px" >
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr class="text-primary">
-                                                                <th scope="col">Id</th>
+                                                                <th scope="col">S.No.</th>
                                                                 <th scope="col">State Name</th>
                                                                 <th scope="col">City Name</th>
                                                                 <th scope="col">City Code</th>
+                                                                <th class="text-center" scope="col">Delete</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

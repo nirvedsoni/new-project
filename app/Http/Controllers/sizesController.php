@@ -65,25 +65,25 @@ class sizesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    // public function store(Request $request)
+    // {
 
-        $validatedData = $request->validate([
-            'size' => ['required'],
-            'nos' => ['required'],
-            'squareFeet' => ['required']
-        ]);
+    //     $validatedData = $request->validate([
+    //         'size' => ['required'],
+    //         'nos' => ['required'],
+    //         'squareFeet' => ['required']
+    //     ]);
         
         
-        $sizeData = new size;
+    //     $sizeData = new size;
 
-        $sizeData->size=$request->input('size');
-        $sizeData->nos=$request->input('nos');
-        $sizeData->squareFeet=$request->input('squareFeet');
-        $sizeData->save();
-        return redirect()->route('home.list');
+    //     $sizeData->size=$request->input('size');
+    //     $sizeData->nos=$request->input('nos');
+    //     $sizeData->squareFeet=$request->input('squareFeet');
+    //     $sizeData->save();
+    //     return redirect()->route('home.list');
 
-    }
+    // }
 
     /**
      * Display the specified resource.
@@ -155,6 +155,10 @@ class sizesController extends Controller
                             </td>
                         </tr>';
             }
+        }else{
+            $html .= '<tr class="text-danger">
+                        <th class="text-center" colspan="5">Empty</th>
+                      </tr>';
         }
 
         echo $html;

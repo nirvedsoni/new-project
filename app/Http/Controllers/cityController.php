@@ -102,4 +102,6 @@ class cityController extends Controller
         return redirect()->route('master.state.list');
 
     }
+
 }
+

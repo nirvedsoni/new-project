@@ -75,7 +75,7 @@
                                                 <td>{{ $items->advDate }}</td>
                                                 <td>{{ $items->wallRent }}</td>
                                                 <td class="text-center">
-                                                    <button title="Size" data-toggle="modal" data-target="#exampleModal"
+                                                    <button title="Size" data-toggle="modal"
                                                         class="btn btn-social btn-just-icon btn-sm btn-primary"
                                                         onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}');">
                                                         size
@@ -102,7 +102,7 @@
                 <div class="col-6" id="sizeDiv" style="display:none;">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h4 class="card-title align-self-center m-1" id="sizeList" >Size List </h4>
+                            <h4 class="card-title align-self-center m-1" id="sizeList">Size List </h4>
                             @if (Session::get('status'))
                                 <div class="alert alert-success" role="alert">
                                     {{ Session::get('status') }}
@@ -112,7 +112,8 @@
                                 </div>
                             @endif
                             <div>
-                                <button type="button" class="btn btn-warning btn-round" onclick="closeSizeDiv();">Close</button>
+                                <button type="button" class="btn btn-warning btn-round"
+                                    onclick="closeSizeDiv();">Close</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -138,7 +139,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Square Feet:</label>
-                                            <input type="number" id="squareFeet" name="squareFeet" class="form-control">
+                                            <input type="number" id="squareFeet" onclick="calc();" name="squareFeet"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 align-self-center">
@@ -162,7 +164,10 @@
                                             </tr>
                                         </thead>
                                         <tbody id="customerSize">
-                                            
+                                            <tr class="text-danger">
+                                                <th class="text-center" colspan="5">Empty</th>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -181,62 +186,68 @@
                 type: 'post',
                 success: function(result) {
                     // alert(result);
-                    if(result){
+                    if (result) {
                         swal({
-                            title: "Alert!", 
-                            text: "Data saved!", 
+                            title: "Alert!",
+                            text: "Data saved!",
                             type: "success"
-                        }).then(function(){ 
-                                getSizes($("#customerId").val(), '');
-                            }
-                        );
-                    }
-                    else{
+                        }).then(function() {
+                            getSizes($("#customerId").val(), '');
+                        });
+                    } else {
                         swal({
-                            title: "Alert!", 
-                            text: "Something went wrong!", 
+                            title: "Alert!",
+                            text: "Something went wrong!",
                             type: "error"
-                        }).then(function(){ 
-                            }
-                        );
+                        }).then(function() {});
                     }
                 }
             })
 
         });
 
-        function getCustomer(cust_id) {
-            $("#customerId").val(cust_id);
-            document.getElementById("sizeList").innerHTML = "Size List of " + cust_id;
-        }
+        // function getCustomer(cust_id) {
+        //     $("#customerId").val(cust_id);
+        //     document.getElementById("sizeList").innerHTML = "Size List of " + cust_id;
+        // }
 
-        function getSizes(cust_id, customerName){
+        function getSizes(cust_id, customerName) {
             $("#customerDiv").removeClass("col-12");
             $("#customerDiv").addClass("col-6");
 
             $("#sizeDiv").show();
             $("#customerId").val(cust_id);
-            if(customerName){
+            if (customerName) {
                 document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
             }
 
             $.ajax({
-                url: "{{route('home.getsizes')}}",
+                url: "{{ route('home.getsizes') }}",
                 type: 'get',
-                data: { 'customerId':cust_id},
+                data: {
+                    'customerId': cust_id
+                },
                 beforeSend: function() {
-                    
+
                 },
                 success: function(response) {
                     $("#customerSize").html(response);
                 },
                 error: function(xhr) {
-                    
+
                 }
             });
         }
 
-        function deleteSize(id){
+        function calc() {
+
+            size = $("#nos").val();
+            nos = $("#size").val();
+
+            $("#squareFeet").val(size * nos);
+        }
+
+        function deleteSize(id) {
             $.confirm({
                 title: 'Alert!',
                 content: 'Are you sure to delete size?',
@@ -244,47 +255,49 @@
                     confirm: {
                         text: 'Confirm',
                         btnClass: 'btn-red',
-                        action: function(){
+                        action: function() {
                             $.ajax({
-                                url: "{{route('home.delete')}}",
+                                url: "{{ route('home.delete') }}",
                                 type: 'get',
-                                data: {'id':id},
+                                data: {
+                                    'id': id
+                                },
                                 beforeSend: function() {
 
                                 },
                                 success: function(response) {
-                                    if(response == true){
+                                    if (response == true) {
                                         swal({
-                                            title: "Alert!", 
-                                            text: "Size deleted!", 
+                                            title: "Alert!",
+                                            text: "Size deleted!",
                                             type: "success"
-                                        }).then(function(){ 
-                                                getSizes($("#customerId").val(), '');
-                                            }
-                                        );
-                                    }else{
+                                        }).then(function() {
+                                            getSizes($("#customerId").val(), '');
+                                        });
+                                    } else {
                                         swal({
-                                            title: "Alert!", 
-                                            text: "Someting went wrong!", 
+                                            title: "Alert!",
+                                            text: "Someting went wrong!",
                                             type: "error"
-                                        }).then(function(){ 
-                                            }
-                                        );
+                                        }).then(function() {});
                                     }
                                 },
                                 error: function(xhr) {
-                                    
+
                                 }
                             });
                         }
                     },
-                    cancel: function () {}
+                    cancel: function() {}
                 }
             });
         }
 
-        function closeSizeDiv(){
+        function closeSizeDiv() {
             $("#customerId").val('');
+            $("#customerSize").html(` <tr class="text-danger">
+                                                <th class="text-center" colspan="5">Loading...</th>
+                                            </tr>`);
 
             $("#customerDiv").removeClass("col-6");
             $("#customerDiv").addClass("col-12");
@@ -293,5 +306,3 @@
         }
     </script>
 @endsection
-
-

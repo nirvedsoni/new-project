@@ -71,8 +71,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     /*Report*/
     Route::prefix('report')->group(function () {
-        Route::get('dealer-report', ['as' => 'report.dealerreport', 'uses' => 'ReportController@dealerreport']);
+        Route::get('dealer-report', ['as' => 'report.datewisereport', 'uses' => 'ReportController@datewisereport']);
+        Route::get('dealer-report-data', ['as' => 'report.datewisereport.data', 'uses' => 'ReportController@getDealerDetail']);
+        Route::get('customer-report-print', ['as' => 'report.datewisereport.print', 'uses' => 'ReportController@printcustomers']);
         Route::get('total-report', ['as' => 'report.totalreport', 'uses' => 'ReportController@totalreport']);
+        // Route::get('print-customers', ['as' => 'report.printcustomers', 'uses' => 'ReportController@printcustomers']);
     });
 });
 

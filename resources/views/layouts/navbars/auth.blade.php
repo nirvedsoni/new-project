@@ -50,7 +50,7 @@
             @endif 
             
             @if(auth()->user()->role == 'Admin')
-            <li class="{{ $elementActive == 'dealerreport' || $elementActive == 'totalreport' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'datewisereport' || $elementActive == 'totalreport' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="false" href="#reports">
                     <i class="nc-icon nc-diamond"></i>
                     <p>
@@ -58,10 +58,10 @@
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ $elementActive == 'dealerreport' || $elementActive == 'totalreport' ? 'show' : '' }}" id="reports">
+                <div class="collapse {{ $elementActive == 'datewisereport' || $elementActive == 'totalreport' ? 'show' : '' }}" id="reports">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'dealerreport' ? 'active' : '' }}">
-                            <a href="{{ route('report.dealerreport') }}">
+                        <li class="{{ $elementActive == 'datewisereport' ? 'active' : '' }}">
+                            <a href="{{ route('report.datewisereport') }}">
                             {{--<a href="#" onclick="open_verify_pin_modal('product_page');">--}}
                                 <i class="nc-icon nc-tile-56"></i>
                                 <p>{{ __('Dealer Report') }}</p>
