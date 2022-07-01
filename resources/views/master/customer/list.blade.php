@@ -192,7 +192,7 @@
                             text: "Data saved!",
                             type: "success"
                         }).then(function() {
-                            getSizes($("#customerId").val(), '');
+                            getSizes($("#customerId").val(),'',$("#landmarkId").val());
                         });
                     } else {
                         swal({
@@ -201,9 +201,10 @@
                             type: "error"
                         }).then(function() {});
                     }
+                    
                 },
                 error: function(xhr) {
-                    console.log(xhr);
+                    console.log('ggg=',xhr);
                 }
             })
 
