@@ -26,11 +26,11 @@ class ReportController extends Controller
 
     
     public function getDealerDetail(Request $request){
-        $customerId = $request->optionValue;
+        $customerLand = $request->landmark;
 
-        $customers = customer::where("cust_id",$customerId)->get();
+        $customers = customer::where("landmark",$customerLand)->get();
 
-        $customerSize = size::where("customerId",$customerId)->get();
+        $customerSize = size::where("landmark",$customerLand)->get();
 
         $html = "";
         if(count($customers)){
@@ -52,31 +52,31 @@ class ReportController extends Controller
          </tr>';
         };
 
-        if(count($customerSize)){
-               $html .= 
-                       '<tr class="text-primary">
-                             <th scope="col">S.No.</th>
-                             <th scope="col">CUST.ID</th>
-                             <th scope="col">SIZE</th>
-                             <th scope="col">NOS</th>
-                             <th scope="col">SQUARE FEET</th>
-                             <th scope="col" class="text-center">PRINT</th>
-                        </tr>';
+        // if(count($customerSize)){
+        //        $html .= 
+        //                '<tr class="text-primary">
+        //                      <th scope="col">S.No.</th>
+        //                      <th scope="col">CUST.ID</th>
+        //                      <th scope="col">SIZE</th>
+        //                      <th scope="col">NOS</th>
+        //                      <th scope="col">SQUARE FEET</th>
+        //                      <th scope="col" class="text-center">PRINT</th>
+        //                 </tr>';
 
-            foreach ($customerSize as $key => $value) {
-                $html .= 
-                      '<tr>
-                            <th scope="row">' . ($key + 1) . '</th>
-                            <td>' . $value->customerId . '</td>
-                            <td>' . $value->size . '</td>
-                            <td>' . $value->nos . '</td>
-                            <td>' . $value->squareFeet . '</td>
-                            <td class="text-center">
-                            <input type="checkbox" class="chkSizeId" name="sizeData" value='. $value->id .'>
-                            </td>
-                        </tr>';
-            }
-        }
+        //     foreach ($customerSize as $key => $value) {
+        //         $html .= 
+        //               '<tr>
+        //                     <th scope="row">' . ($key + 1) . '</th>
+        //                     <td>' . $value->cust_id . '</td>
+        //                     <td>' . $value->size . '</td>
+        //                     <td>' . $value->nos . '</td>
+        //                     <td>' . $value->squareFeet . '</td>
+        //                     <td class="text-center">
+        //                     <input type="checkbox" class="chkSizeId" name="sizeData" value='. $value->id .'>
+        //                     </td>
+        //                 </tr>';
+        //     }
+        // }
       
         echo $html;
     }
@@ -84,11 +84,10 @@ class ReportController extends Controller
     
     function printcustomers(Request $request){
         $custmerIds = $request->custIds;
-        $sizeIds = $request->sIds;
 
         $customersData = customer::whereIn("cust_id",$custmerIds)->get();
 
-        $customerSizes = size::whereIn("id",$sizeIds)->get();
+        $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
 
         return view("master.customer.printcust",["customersData"=> $customersData,"customerSizes"=> $customerSizes]);
 

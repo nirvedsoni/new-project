@@ -24,7 +24,7 @@
                                                 <select name="state" id="optVal" class="form-control">
                                                     <option value="">Select here...</option>
                                                     @foreach ($data as $items)
-                                                        <option value="{{ $items->cust_id }}" id="">
+                                                        <option value="{{ $items->landmark }}" id="">
                                                             {{ $items->landmark }}</option>
                                                     @endforeach
                                                 </select>
@@ -102,7 +102,6 @@
 <script>
     function printDiv() {
         let customerIds = new Array();
-        let sizeIds = new Array();
 
         $(".chkCustomerId").each(function() {
             if ($(this).prop("checked") == true) {
@@ -110,24 +109,17 @@
             }
         });
 
-        $(".chkSizeId").each(function() {
-            if ($(this).prop("checked") == true) {
-                sizeIds.push($(this).val());
-            }
-        });
 
         console.log('cust IDs=>', customerIds);
-        console.log('size IDs=>', sizeIds);
 
-        if (customerIds.length == 0 || sizeIds.length == 0) {
+        if (customerIds.length == 0) {
             alert('Please Select Customers and size');
         } else {
             $.ajax({
                 url: "{{ route('report.datewisereport.print') }}",
                 type: 'get',
                 data: {
-                    'custIds': customerIds,
-                    'sIds': sizeIds
+                    'custIds': customerIds
                 },
                 beforeSend: function() {
 
@@ -149,15 +141,19 @@
     function custDetail() {
 
         let e = document.getElementById("optVal");
-        let optionValue = e.options[e.selectedIndex].value;
+        let landmarkVal = e.options[e.selectedIndex].value;
 
-        console.log('optionValue =>', optionValue)
+        // let g = JSON.parse(optionValue);
+        // const cust_id = g[0];
+        // const landmark = g[1];
+
+        console.log('landmark =>',landmarkVal)
 
         $.ajax({
             url: "{{ route('report.datewisereport.data') }}",
             type: 'get',
             data: {
-                'optionValue': optionValue
+                'landmark': landmarkVal
             },
             beforeSend: function() {
 
@@ -169,6 +165,5 @@
 
             }
         });
-
     }
 </script>

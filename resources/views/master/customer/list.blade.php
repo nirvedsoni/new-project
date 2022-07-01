@@ -6,9 +6,9 @@
 
 @section('content')
     <div class="content">
-        <div class="container-fluid">
+        <div class="">
             <div class="row">
-                <div class="col-12" id="customerDiv">
+                <div class="col-12" id="customerDiv" style="padding-right: 0px;">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title align-self-center m-1">Customer List</h4>
@@ -49,16 +49,16 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr class="text-primary">
-                                            <th scope="col">Id</th>
+                                            <th scope="col">No</th>
+                                            <th scope="col" class="text-center">Actions</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">address</th>
                                             <th scope="col">landmark</th>
-                                            <th scope="col">wallNo</th>
+                                            {{-- <th scope="col">wallNo</th> --}}
                                             <th scope="col">state</th>
                                             <th scope="col">City</th>
-                                            <th scope="col">advDate</th>
-                                            <th scope="col">wallRent</th>
-                                            <th scope="col" class="text-center">Actions</th>
+                                            {{-- <th scope="col">advDate</th> --}}
+                                            {{-- <th scope="col">wallRent</th> --}}
                                         </tr>
                                     </thead>
 
@@ -66,18 +66,10 @@
                                         @foreach ($data as $key => $items)
                                             <tr>
                                                 <th scope="row">{{ $key + 1 }}</th>
-                                                <td>{{ $items->customerName }}</td>
-                                                <td>{{ $items->address }}</td>
-                                                <td>{{ $items->landmark }}</td>
-                                                <td>{{ $items->wallNo }}</td>
-                                                <td>{{ $items->state }}</td>
-                                                <td>{{ $items->city }}</td>
-                                                <td>{{ $items->advDate }}</td>
-                                                <td>{{ $items->wallRent }}</td>
                                                 <td class="text-center">
                                                     <button title="Size" data-toggle="modal"
                                                         class="btn btn-social btn-just-icon btn-sm btn-primary"
-                                                        onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}');">
+                                                        onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
                                                         size
                                                     </button>
                                                     <button title="Edit" data-toggle="modal" data-target="#exampleModal"
@@ -90,6 +82,15 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
+                                                <td>{{ $items->customerName }}</td>
+                                                <td>{{ $items->address }}</td>
+                                                <td>{{ $items->landmark }}</td>
+                                                {{-- <td>{{ $items->wallNo }}</td> --}}
+                                                <td>{{ $items->state }}</td>
+                                                <td>{{ $items->city }}</td>
+                                                {{-- <td>{{ $items->advDate }}</td> --}}
+                                                {{-- <td>{{ $items->wallRent }}</td> --}}
+                                               
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -120,26 +121,25 @@
                             <form action="" method="POST" id="sizeform">
                                 @csrf()
                                 @method('post')
-                                <input type="hidden" name="customerId" id="customerId">
+                                <input type="hidden" name="cust_id" id="customerId">
+                                <input type="hidden" name="landmark" id="landmarkId">
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="recipient-name" class="col-form-label">Size:</label>
-                                            <input type="number" id="size" name="size" class="form-control"
-                                                id="recipient-name">
+                                            <input type="text" id="size" name="size" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Nos:</label>
-                                            <input type="number" id="nos" name="nos" class="form-control"
-                                                id="recipient-name">
-                                        </div>
+                                            <input type="number" id="nos" name="nos" class="form-control">
+                                        </div>  
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Square Feet:</label>
-                                            <input type="number" id="squareFeet" onclick="calc();" name="squareFeet"
+                                            <input type="text" id="squareFeet"  name="squareFeet"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -201,6 +201,9 @@
                             type: "error"
                         }).then(function() {});
                     }
+                },
+                error: function(xhr) {
+                    console.log(xhr);
                 }
             })
 
@@ -211,12 +214,13 @@
         //     document.getElementById("sizeList").innerHTML = "Size List of " + cust_id;
         // }
 
-        function getSizes(cust_id, customerName) {
+        function getSizes(cust_id, customerName, landmark) {
             $("#customerDiv").removeClass("col-12");
             $("#customerDiv").addClass("col-6");
 
             $("#sizeDiv").show();
             $("#customerId").val(cust_id);
+            $("#landmarkId").val(landmark);
             if (customerName) {
                 document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
             }
@@ -225,7 +229,7 @@
                 url: "{{ route('home.getsizes') }}",
                 type: 'get',
                 data: {
-                    'customerId': cust_id
+                    'cust_id': cust_id
                 },
                 beforeSend: function() {
 
@@ -239,13 +243,15 @@
             });
         }
 
-        function calc() {
+        // function calc() {
 
-            size = $("#nos").val();
-            nos = $("#size").val();
+        //     size = $("#nos").val();
+        //     nos = $("#size").val();
 
-            $("#squareFeet").val(size * nos);
-        }
+        //     $("#squareFeet").val(size * nos);
+        // }
+
+       
 
         function deleteSize(id) {
             $.confirm({

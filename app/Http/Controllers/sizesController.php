@@ -36,14 +36,16 @@ class sizesController extends Controller
         $size=$request->post('size');
         $nos=$request->post('nos');
         $squareFeet=$request->post('squareFeet');
-        $customerId = $request->post('customerId');
+        $cust_id = $request->post('cust_id');
+        $landmark = $request->post('landmark');
 
         $sizeData = new size;
 
         $sizeData->size=$size;
         $sizeData->nos=$nos;
         $sizeData->squareFeet=$squareFeet;
-        $sizeData->customerId = $customerId;
+        $sizeData->cust_id = $cust_id;
+        $sizeData->landmark = $landmark;
         if($sizeData->save()){
             $msg = true; 
         }
@@ -136,9 +138,9 @@ class sizesController extends Controller
     }
 
     public function getsizes(Request $request){
-        $customerId = $request->customerId;
+        $customerId = $request->cust_id;
 
-        $sizes = Size::where("customerId",$customerId)->get();
+        $sizes = Size::where("cust_id",$customerId)->get();
 
         $html = "";
         if(count($sizes)){
