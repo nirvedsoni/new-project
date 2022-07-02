@@ -6,59 +6,33 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title align-self-center m-1">Date Wise Report</h4>
                     </div>
                     <div class="card-body">
-                        <div class="row justify-content-beyween">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 align-self-center">
-                                            <label for="">Customer Name</label>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <select name="state" id="optVal" class="form-control">
-                                                    <option value="">Select here...</option>
-                                                    @foreach ($data as $items)
-                                                        <option value="{{ $items->landmark }}" id="">
-                                                            {{ $items->landmark }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2">
+                                <label for="">Landmark</label>
+                                <select name="state" id="optVal" class="form-control">
+                                    <option value="">Select here...</option>
+                                    @foreach ($data as $items)
+                                        <option value="{{ $items->landmark }}" id="">
+                                            {{ $items->landmark }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-3 align-self-center">
-                                            <label for="">From</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group col-lg-2">
+                                <label for="searchFromDate">From</label>
+                                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control">
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-3 align-self-center">
-                                            <label for="">To</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="form-group col-lg-2">
+                                <label for="searchToDate">To</label>
+                                <input type="date" name="searchToDate" id="searchToDate" class="form-control">
                             </div>
                             <div class="col-md-2">
-                                <button onclick="custDetail();" class="btn btn-primary">View
+                                <button onclick="custDetail();" class="btn btn-primary mt-4">View
                                 </button>
                             </div>
                         </div>
@@ -70,10 +44,10 @@
                                     <thead>
                                         <tr class="text-primary">
                                             <th scope="col">S.NO.</th>
-                                            <th scope="col">Cust.Id</th>
                                             <th scope="col">Customer Name</th>
                                             <th scope="col">Customer Address</th>
                                             <th scope="col">Landmark</th>
+                                            <th scope="col">Adv. Date</th>
                                             <th scope="col" class="text-center">Print</th>
                                         </tr>
                                     </thead>
@@ -143,17 +117,16 @@
         let e = document.getElementById("optVal");
         let landmarkVal = e.options[e.selectedIndex].value;
 
-        // let g = JSON.parse(optionValue);
-        // const cust_id = g[0];
-        // const landmark = g[1];
-
-        console.log('landmark =>',landmarkVal)
+        var fromDate = $("#searchFromDate").val();
+        var toDate = $("#searchToDate").val();
 
         $.ajax({
             url: "{{ route('report.datewisereport.data') }}",
             type: 'get',
             data: {
-                'landmark': landmarkVal
+                'landmark': landmarkVal,
+                'fromDate': fromDate,
+                'toDate' : toDate
             },
             beforeSend: function() {
 

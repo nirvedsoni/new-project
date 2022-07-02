@@ -27,20 +27,32 @@ class ReportController extends Controller
     
     public function getDealerDetail(Request $request){
         $customerLand = $request->landmark;
+        $fromDate = $request->fromDate;
+        $toDate = $request->toDate;
 
-        $customers = customer::where("landmark",$customerLand)->get();
+        $customers = customer::orderBy("customerName","ASC");
 
-        $customerSize = size::where("landmark",$customerLand)->get();
+        if($customerLand){
+            $customers = $customers->where("landmark",$customerLand);
+        }
+
+        if($fromDate && $toDate){
+            $customers = $customers->whereBetween("advDate",[$fromDate, $toDate]);
+        }
+
+        $customers = $customers->get();
+
+        // $customerSize = size::where("landmark",$customerLand)->get();
 
         $html = "";
         if(count($customers)){
             foreach ($customers as $key => $value) {
                 $html .= '<tr>
                             <th scope="row">' . ($key + 1) . '</th>
-                            <td>' . $value->cust_id . '</td>
                             <td>' . $value->customerName . '</td>
                             <td>' . $value->address . '</td>
                             <td>' . $value->landmark . '</td>
+                            <td>' . date("d/m/Y",strtotime($value->advDate)) . '</td>
                             <td class="text-center">
                                <input type="checkbox" class="chkCustomerId" name="prtData" value='. $value->cust_id .'>
                             </td>

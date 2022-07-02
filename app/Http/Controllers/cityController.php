@@ -103,5 +103,19 @@ class cityController extends Controller
 
     }
 
+    function getCity(Request $request){
+        $state = $request->state;
+
+        $cities = city::where('stateName',$state)->orderBy("cityName","ASC")->get();
+
+        $html = "<option value=''>Select</option>";
+
+        if(count($cities)){
+            foreach ($cities as $key => $value) {
+                $html .= '<option value="' . $value->cityName . '">' . $value->cityName . '</option>';
+            }
+        }
+        echo $html;
+    }
 }
 

@@ -79,13 +79,37 @@ class customersController extends Controller
      * @param  \App\customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
-        $data = customer::all();
-        // return view('master.customer.list',["data"=> $data]);
+        $cities = [];
 
-        $sizeData = size::all();
-        return view('master.customer.list',["sizeData"=> $sizeData, "data"=>$data]);
+        $searchState = $request->searchState;
+        $searchCity = $request->searchCity;
+        $keyword = $request->keyword;
+        // $data = customer::all();
+        
+        $data = customer::orderBy("customerName","ASC");
+
+        if($searchState){
+            $data = $data->where("state",$searchState);
+
+            $cities = city::where('stateName',$searchState)->orderBy("cityName","ASC")->get();
+        }
+        if($searchCity){
+            $data = $data->where("city",$searchCity);
+        }
+        if($keyword){
+            $data = $data->where(function($query) use ($keyword){
+                        $query->where("customerName","like","%" . $keyword . "%")
+                            ->orWhere("landmark","like","%" . $keyword . "%");
+                    });
+        }
+
+        $data = $data->paginate(10);
+
+        $states = state::orderBy("stateName","ASC")->get();
+
+        return view('master.customer.list',compact("data","states","cities","searchState","searchCity","keyword"));
 
     }
 

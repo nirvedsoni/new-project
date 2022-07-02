@@ -26,16 +26,32 @@
                         </div>
                         <div class="card-body">
                             <form action="{{ route('home.list') }}">
-                                {{-- <div class="form-row">
+                                <div class="form-row">
                                     <div class="form-group col-lg-2">
-                                        <label for="searchFromDate">From Date</label>
-                                        <input type="date" name="searchFromDate" id="searchFromDate"
-                                            value="{{ $searchFromDate }}" class="form-control">
+                                        <label for="searchState">State</label>
+                                        <select class="form-control" name="searchState" id="searchState" onchange="getCities(this.value);">
+                                            <option value="">Select</option>
+                                            @if(count($states))
+                                                @foreach($states as $key => $value)
+                                                    <option value="{{$value->stateName}}" @if($value->stateName == $searchState) selected @endif>{{$value->stateName}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
                                     <div class="form-group col-lg-2">
-                                        <label for="searchToDate">To Date</label>
-                                        <input type="date" name="searchToDate" id="searchToDate" value="{{ $searchToDate }}"
-                                            class="form-control">
+                                        <label for="searchCity">City</label>
+                                        <select class="form-control" name="searchCity" id="searchCity">
+                                            <option value="">Select</option>
+                                            @if(count($cities))
+                                                @foreach($cities as $key => $value)
+                                                    <option value="{{$value->cityName}}" @if($value->cityName == $searchCity) selected @endif>{{$value->cityName}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-2">
+                                        <label for="keyword">Name/Landmark</label>
+                                        <input type="text" name="keyword" id="keyword" class="form-control" value="{{$keyword}}">
                                     </div>
                                     <div class="form-group col-lg-2 col-sm-3">
                                         <button title="Search" class="btn btn-social btn-just-icon btn-md btn-primary mt-4"
@@ -43,7 +59,7 @@
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
-                                </div> --}}
+                                </div>
                             </form>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -63,40 +79,48 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($data as $key => $items)
-                                            <tr>
-                                                <th scope="row">{{ $key + 1 }}</th>
-                                                <td class="text-center">
-                                                    <button title="Size" data-toggle="modal"
-                                                        class="btn btn-social btn-just-icon btn-sm btn-primary"
-                                                        onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
-                                                        size
-                                                    </button>
-                                                    <button title="Edit" data-toggle="modal" data-target="#exampleModal"
-                                                        class="btn btn-social btn-just-icon btn-sm btn-success m-1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </button>
-                                                    <button title="Delete"
-                                                        class="btn btn-social btn-just-icon btn-sm btn-danger">
-                                                        {{-- <button title="Delete" class="btn btn-social btn-just-icon btn-sm btn-danger" onclick="open_verify_pin_modal('delete_product__{{base64_encode($value->id)}}');"> --}}
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td>{{ $items->customerName }}</td>
-                                                <td>{{ $items->address }}</td>
-                                                <td>{{ $items->landmark }}</td>
-                                                {{-- <td>{{ $items->wallNo }}</td> --}}
-                                                <td>{{ $items->state }}</td>
-                                                <td>{{ $items->city }}</td>
-                                                {{-- <td>{{ $items->advDate }}</td> --}}
-                                                {{-- <td>{{ $items->wallRent }}</td> --}}
-                                               
-                                            </tr>
-                                        @endforeach
+                                        @if(count($data))
+                                            @php
+                                                $page = 1;
+                                                if(isset($_GET['page'])){
+                                                    $page = $_GET['page'];
+                                                }
+                                            @endphp
+                                            @foreach ($data as $key => $items)
+                                                <tr>
+                                                    <th scope="row">{{ ($key+1+($page-1)*10) }}</th>
+                                                    <td class="text-center">
+                                                        <button title="Size" data-toggle="modal"
+                                                            class="btn btn-social btn-just-icon btn-sm btn-primary"
+                                                            onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
+                                                            size
+                                                        </button>
+                                                        <button title="Edit" data-toggle="modal" data-target="#exampleModal"
+                                                            class="btn btn-social btn-just-icon btn-sm btn-success m-1">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                        <button title="Delete"
+                                                            class="btn btn-social btn-just-icon btn-sm btn-danger">
+                                                            {{-- <button title="Delete" class="btn btn-social btn-just-icon btn-sm btn-danger" onclick="open_verify_pin_modal('delete_product__{{base64_encode($value->id)}}');"> --}}
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>{{ $items->customerName }}</td>
+                                                    <td>{{ $items->address }}</td>
+                                                    <td>{{ $items->landmark }}</td>
+                                                    {{-- <td>{{ $items->wallNo }}</td> --}}
+                                                    <td>{{ $items->state }}</td>
+                                                    <td>{{ $items->city }}</td>
+                                                    {{-- <td>{{ $items->advDate }}</td> --}}
+                                                    {{-- <td>{{ $items->wallRent }}</td> --}}
+                                                   
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
-                            {{-- {{ $entries->links() }} --}}
+                            {{ $data->links() }}
                         </div>
                     </div>
                 </div>
@@ -127,13 +151,13 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="recipient-name" class="col-form-label">Size:</label>
-                                            <input type="text" id="size" name="size" class="form-control">
+                                            <input type="text" id="size" name="size" class="form-control" onkeyup="calculate_sqfeet();">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Nos:</label>
-                                            <input type="number" id="nos" name="nos" class="form-control">
+                                            <input type="number" id="nos" name="nos" class="form-control" onkeyup="calculate_sqfeet();">
                                         </div>  
                                     </div>
                                     <div class="col-sm-3">
@@ -209,6 +233,25 @@
             })
 
         });
+
+        function getCities(state){
+            $.ajax({
+                url: "{{ route('city.get') }}",
+                type: 'get',
+                data: {
+                    'state': state
+                },
+                beforeSend: function() {
+
+                },
+                success: function(response) {
+                    $("#searchCity").html(response);
+                },
+                error: function(xhr) {
+
+                }
+            });
+        }
 
         // function getCustomer(cust_id) {
         //     $("#customerId").val(cust_id);
@@ -310,6 +353,25 @@
             $("#customerDiv").addClass("col-12");
 
             $("#sizeDiv").hide();
+        }
+
+        function calculate_sqfeet(){
+            var size = $("#size").val();
+            var nos = $("#nos").val();
+
+            if(!nos){
+                nos = 0;
+            }
+
+            var sq_feet = "";
+            if(size){
+                // console.log(eval(size));
+                if(size.includes("*")){
+                    sq_feet = eval(size)*nos;
+                }
+            }
+
+            $("#squareFeet").val(sq_feet);
         }
     </script>
 @endsection

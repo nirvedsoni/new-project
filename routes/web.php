@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('storeCity', ['as' => 'city.store', 'uses' => 'cityController@store']);
         Route::get('showCity', ['as' => 'city.show', 'uses' => 'cityController@index']);
         Route::get('citydelete/{id}', ['as' => 'city.show', 'uses' => 'cityController@destroy']);
+        Route::get('getCity', ['as' => 'city.get', 'uses' => 'cityController@getCity']);
     });
 
 	/*Dealer*/
