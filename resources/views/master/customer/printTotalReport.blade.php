@@ -14,44 +14,42 @@
                 </tr>
             </thead>
             <tbody id="customerData">
-                @foreach ($totalData as $key => $value)
-                    @php
-                        $totalSizes = App\size::where('cust_id', $value->cust_id)->get();
-                    @endphp
-                    <tr>
-                        <th scope="row">{{ $key + 1 }}</th>
-                        <td>{{ $value->customerName }} , {{ $value->address }}</td>
-                        <td>
-                            @foreach ($totalSizes as $skey => $svalue)
-                                <p>{{ $svalue->size }}</p>
-                            @endforeach
-                        </td>
-                        <td>
-                            @foreach ($totalSizes as $skey => $svalue)
-                                <p>{{ $svalue->squareFeet }}</p>
-                            @endforeach
-                        </td>
-
-                        <td>{{ $value->wallRent }}</td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Total</td>
-                    <td>
-                        @foreach ($totalData as $key => $value)
-                            @php
-                                $totalSizes = App\size::where('cust_id', $value->cust_id)->get();
-                            @endphp
-                            @foreach ($totalSizes as $skey => $svalue)
-                                <p>{{ $svalue->sum('squareFeet') }}</p>
-                            @endforeach
-                        @endforeach
-                        
-                    </td>
-                </tr>
-
+                @if(count($totalData))
+                    @foreach ($totalData as $key => $value)
+                        @php
+                            $totalSizes = App\size::where('cust_id', $value->cust_id)->get();
+                        @endphp
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $value->customerName }} , {{ $value->address }}</td>
+                            <td>
+                                @if(count($totalSizes))
+                                    @foreach ($totalSizes as $skey => $svalue)
+                                        <p>{{ $svalue->size }}</p>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @if(count($totalSizes))
+                                    @foreach ($totalSizes as $skey => $svalue)
+                                        <p>{{ $svalue->squareFeet }}</p>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>{{ $value->wallRent }}</td>
+                        </tr>
+                        @if(count($totalSizes) > 1)
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td>
+                                    <strong>{{ $totalSizes->sum('squareFeet') }}</strong>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                @endif
             </tbody>
 
         </table>

@@ -6,7 +6,7 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title align-self-center m-1">Total Report</h4>
@@ -16,21 +16,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-5 align-self-center">
+                                        <div class="col-sm-5 mt-2 text-center">
                                             <label for="">Landmark</label>
                                         </div>
                                         <div class="col-sm-7">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-sm-7">
-                                                        <select name="state" id="optVal" class="form-control">
-                                                            <option value="">Select here...</option>
-                                                            @foreach ($data as $items)
-                                                                <option value="{{ $items->landmark }}">
-                                                                    {{ $items->landmark }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                    <select name="state" id="optVal" class="form-control">
+                                                        <option value="">Select here...</option>
+                                                        @foreach ($data as $items)
+                                                            <option value="{{ $items->landmark }}" id="">
+                                                                {{ $items->landmark }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -41,10 +39,11 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-3 align-self-center">
-                                            <label for="">From</label>
+                                            <label for="searchFromDate">From</label>
                                         </div>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control">
+                                            <input type="date" name="searchFromDate" id="searchFromDate"
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -53,10 +52,11 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-3 align-self-center">
-                                            <label for="">To</label>
+                                            <label for="searchToDate">to</label>
                                         </div>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control">
+                                            <input type="date" name="searchToDate" id="searchToDate"
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -88,19 +88,16 @@
         let e = document.getElementById("optVal");
         let landmarkVal = e.options[e.selectedIndex].value;
 
-        // var fromDate = $("#searchFromDate").val();
-        // var toDate = $("#searchToDate").val();
-        if (landmarkVal) {
-            console.log(landmarkVal);
-        } else {
-
-        }
+        var fromDate = $("#searchFromDate").val();
+        var toDate = $("#searchToDate").val();
 
         $.ajax({
             url: "{{ route('report.totalreport.data') }}",
             type: 'get',
             data: {
-                'landmark': landmarkVal
+                'landmark': landmarkVal,
+                'fromDate': fromDate,
+                'toDate': toDate
             },
             beforeSend: function() {
 
