@@ -88,7 +88,7 @@ class customersController extends Controller
         $keyword = $request->keyword;
         // $data = customer::all();
         
-        $data = customer::orderBy("customerName","ASC");
+        $data = customer::orderBy("wallNo","ASC");
 
         if($searchState){
             $data = $data->where("state",$searchState);
@@ -109,7 +109,10 @@ class customersController extends Controller
 
         $states = state::orderBy("stateName","ASC")->get();
 
+    //    $this->add($state,$cities,$searchState,$searchCity);
+
         return view('master.customer.list',compact("data","states","cities","searchState","searchCity","keyword"));
+        
 
     }
 
@@ -147,11 +150,19 @@ class customersController extends Controller
         //
     }
 
-    function add(){
+    public function add(){
 
-        $Sdata = state::all();
-        $Cdata = city::all();
+        // $state = $state ;
+        // $city = $city ;
+        // $searchState = $searchState;
+        // $searchCity =$searchCity;
+        
 
-        return view("master.customer.add",["sData"=> $Sdata, "cData"=> $Cdata]);
+
+        $sData = state::all() ;
+        $cData = city::all();
+
+
+        return view("master.customer.add",compact("sData","cData"));
     }
 }   

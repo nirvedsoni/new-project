@@ -12,13 +12,14 @@ class ReportController extends Controller
 {
     function datewisereport(){
 
-        $data = customer::all();
+        $data = customer::select('landmark')->groupBy('landmark')->get();
+
         return view("report.dealerreport",["data"=> $data]);
     }
     
     function totalreport(){
 
-        $data = customer::all();
+        $data = customer::select('landmark')->groupBy('landmark')->get();
         return view("report.totalreport",["data"=> $data]);
     }
 
@@ -30,7 +31,7 @@ class ReportController extends Controller
         $fromDate = $request->fromDate;
         $toDate = $request->toDate;
 
-        $customers = customer::orderBy("customerName","ASC");
+        $customers = customer::orderBy("wallNo","ASC");
 
         if($customerLand){
             $customers = $customers->where("landmark",$customerLand);
@@ -99,9 +100,9 @@ class ReportController extends Controller
 
         $customersData = customer::whereIn("cust_id",$custmerIds)->get();
 
-        $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
+        // $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
 
-        return view("master.customer.printcust",["customersData"=> $customersData,"customerSizes"=> $customerSizes]);
+        return view("master.customer.printcust",["customersData"=> $customersData]);
 
     }
     

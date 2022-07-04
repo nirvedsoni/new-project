@@ -114,14 +114,18 @@
                                                 <label for="inputState">State</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="state"
+                                                <select name="state" id="searchState" ;
                                                     class="@error('state') is-invalid @enderror form-control">
-                                                    <option selected>Choose State...</option>
+                                                    <option selected value="">Select State...</option>
                                                     @foreach ($sData as $items)
                                                         <option value="{{ $items->stateName }}">{{ $items->stateName }}
                                                         </option>
                                                     @endforeach
+
                                                 </select>
+                                                @error('state')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -133,13 +137,16 @@
                                                 <label for="inputState">City</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="City" id="inputState" class="form-control">
-                                                    <option selected>Choose City...</option>
+                                                <select name="City" id="inputState" class=" @error('state') is-invalid @enderror form-control">
+                                                    <option selected value="" >Select City...</option>
                                                     @foreach ($cData as $items)
                                                         <option value="{{ $items->cityName }}">{{ $items->cityName }}
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error('City')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -190,46 +197,28 @@
             </div>
         </div>
     </div>
-
 @endsection
-{{-- <div class="table-responsive">
-    <table class="table table-bordered">
-        <tbody>
-            <tr class="text-center">
-                <th scope="col">S.No.</th>
-                <th scope="col">Cust. Id</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">size</th>
-                <th scope="col">SQ.Feet</th>
-            </tr>
-                <tr class="text-center">
-                    <td>sdsdfd</td>
-                    <td>sdsdfd</td>
-                    <td>sdsdfd</td>
-                    <td>sdsdfd</td>
-                </tr>
-        </tbody>
-    </table>
-</div>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <tbody>
-            <tr class="text-center">
-                <th scope="col">S.No.</th>
-                <th scope="col">Cust. Id</th>
-                <th scope="col">Nos</th>
-                <th scope="col">Size</th>
-                <th scope="col">Square Feet</th>
-            </tr>
-                <tr class="text-center">
-                    <td>sdsdd</td>
-                    <td>sdsdd</td>
-                    <td>sdsdd</td>
-                    <td>sdsdd</td>
-                </tr>
-        </tbody>
 
-    </table>
-</div> --}}
+<script>
+//     function getCities(state) {
 
-{{-- wall number shor filter --}}
+//         console.log(state)
+
+//         $.ajax({
+//             url: "{{ route('city.get') }}",
+//             type: 'get',
+//             data: {
+//                 'state': state
+//             },
+//             beforeSend: function() {
+
+//             },
+//             success: function(response) {
+//                 $("#searchCity").html(response);
+//             },
+//             error: function(xhr) {
+
+//             }
+//         });
+//     }
+// </script>

@@ -2,7 +2,12 @@
     @media print {
         .print-div {
             color: black;
-            padding: 40px;
+            /* padding: 40px 40px; */
+            padding: 80px 40px 40px;
+        }
+
+        .page-break {
+            page-break-after: always;
         }
 
         /* @page {
@@ -232,17 +237,21 @@
             text-transform: uppercase;
         }
 
-        .container {
-            padding: 50px;
+        .pt-2,
+        .py-2 {
+            padding-top: .5rem !important;
         }
+
 
     }
 </style>
 
 
-<div class="print-div">
+
+@if (count($customersData))
     @foreach ($customersData as $key => $value)
-        @foreach ($customerSizes as $key => $svalue)
+        <div class="print-div">
+
             <div class="container">
                 <div class="card b" style="border: 1px solid black;  border-radius: 0px; ">
                     <div class="card-body py-0">
@@ -250,8 +259,7 @@
                             <div class="col-sm-9 pt-0  b-right">
                                 <div class="row b-btm text-center">
                                     <div class="col-sm-4 b-right">
-                                        <h5>{{ $value->landmark }}</h5>
-
+                                        <h5 class="color-black">{{ $value->landmark }}</h5>
                                     </div>
                                     <div class="col-sm-4 b-right">
                                         <h5>{{ $value->city }}</h5>
@@ -266,7 +274,7 @@
                                         <h1></h1>
                                     </div>
                                 </div>
-                                <div class="row b">
+                                <div class="row b  pt-2">
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-sm-3">Place </div>
@@ -308,23 +316,33 @@
                                         <h5>SQ.FEET</h5>
                                     </div>
                                 </div>
-                                <div class="row b-left">
-                                    <div class="col-sm-6 b">
-                                        <div class="text-center p-1 mb-0">
-                                            <h5>{{ $svalue->size }}</h5>
+                                @php
+                                    $customerSizes = App\size::where('cust_id', $value->cust_id)->get();
+                                @endphp
+                                    @foreach ($customerSizes as $skey => $svalue)
+                                        <div class="row b-left">
+                                            <div class="col-sm-6 b">
+                                                <div class="text-center p-1 mb-0">
+                                                    <h5>{{ $svalue->size }}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 b">
+                                                <div class="text-center p-1 mb-0">
+                                                    <h5>{{ $svalue->squareFeet }}</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 b">
-                                        <div class="text-center p-1 mb-0">
-                                            <h5>{{ $svalue->squareFeet }}</h5>
-                                        </div>
-                                    </div>
-                                </div>
+                                    @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
+
+            @if ($loop->even)
+                <div class="page-break"></div>
+                {{-- also use this <div style="break-after:page"></div> --}}
+            @endif
+        </div>
     @endforeach
-</div>
+@endif

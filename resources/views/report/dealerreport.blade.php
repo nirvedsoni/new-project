@@ -12,27 +12,58 @@
                         <h4 class="card-title align-self-center m-1">Date Wise Report</h4>
                     </div>
                     <div class="card-body">
-                        <div class="form-row">
-                            <div class="form-group col-lg-2">
-                                <label for="">Landmark</label>
-                                <select name="state" id="optVal" class="form-control">
-                                    <option value="">Select here...</option>
-                                    @foreach ($data as $items)
-                                        <option value="{{ $items->landmark }}" id="">
-                                            {{ $items->landmark }}</option>
-                                    @endforeach
-                                </select>
+                        <div class="row justify-content-beyween">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 mt-2 text-center">
+                                            <label for="">Landmark</label>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <select name="state" id="optVal" class="form-control">
+                                                        <option value="">Select here...</option>
+                                                        @foreach ($data as $items)
+                                                            <option value="{{ $items->landmark }}" id="">
+                                                                {{ $items->landmark }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-lg-2">
-                                <label for="searchFromDate">From</label>
-                                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 align-self-center">
+                                            <label for="searchFromDate">From</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="date" name="searchFromDate" id="searchFromDate"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-lg-2">
-                                <label for="searchToDate">To</label>
-                                <input type="date" name="searchToDate" id="searchToDate" class="form-control">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 align-self-center">
+                                            <label for="searchToDate">to</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="date" name="searchToDate" id="searchToDate"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-2">
-                                <button onclick="custDetail();" class="btn btn-primary mt-4">View
+                                <button onclick="custDetail();" class="btn btn-primary">View
                                 </button>
                             </div>
                         </div>
@@ -53,7 +84,7 @@
                                     </thead>
                                     <tbody id="customerData">
                                         <tr>
-                                            <td class="text-danger text-center" colspan="6">Empty</td>
+                                            <th class="text-danger text-center" colspan="6">Empty</th>
                                         </tr>
 
                                     </tbody>
@@ -120,23 +151,31 @@
         var fromDate = $("#searchFromDate").val();
         var toDate = $("#searchToDate").val();
 
-        $.ajax({
-            url: "{{ route('report.datewisereport.data') }}",
-            type: 'get',
-            data: {
-                'landmark': landmarkVal,
-                'fromDate': fromDate,
-                'toDate' : toDate
-            },
-            beforeSend: function() {
+        if (landmarkVal) {
+            $.ajax({
+                url: "{{ route('report.datewisereport.data') }}",
+                type: 'get',
+                data: {
+                    'landmark': landmarkVal,
+                    'fromDate': fromDate,
+                    'toDate': toDate
+                },
+                beforeSend: function() {
 
-            },
-            success: function(response) {
-                $("#customerData").html(response);
-            },
-            error: function(xhr) {
+                },
+                success: function(response) {
+                    $("#customerData").html(response);
+                },
+                error: function(xhr) {
 
-            }
-        });
+                }
+            });
+        } else {
+            $("#customerData").html(` <tr class="text-danger">
+                                                <th class="text-center" colspan="6">Empty</th>
+                                            </tr>`);
+
+        };
+
     }
 </script>

@@ -26,38 +26,71 @@
                         </div>
                         <div class="card-body">
                             <form action="{{ route('home.list') }}">
-                                <div class="form-row">
-                                    <div class="form-group col-lg-2">
-                                        <label for="searchState">State</label>
-                                        <select class="form-control" name="searchState" id="searchState" onchange="getCities(this.value);">
-                                            <option value="">Select</option>
-                                            @if(count($states))
-                                                @foreach($states as $key => $value)
-                                                    <option value="{{$value->stateName}}" @if($value->stateName == $searchState) selected @endif>{{$value->stateName}}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-3 text-center mt-2">
+                                                    <label for="searchState">State</label>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" name="searchState" id="searchState"
+                                                onchange="getCities(this.value);">
+                                                <option selected value="">Select</option>
+                                                @if (count($states))
+                                                    @foreach ($states as $key => $value)
+                                                        <option value="{{ $value->stateName }}"
+                                                            @if ($value->stateName == $searchState)  @endif>
+                                                            {{ $value->stateName }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-2">
-                                        <label for="searchCity">City</label>
-                                        <select class="form-control" name="searchCity" id="searchCity">
-                                            <option value="">Select</option>
-                                            @if(count($cities))
-                                                @foreach($cities as $key => $value)
-                                                    <option value="{{$value->cityName}}" @if($value->cityName == $searchCity) selected @endif>{{$value->cityName}}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-3 mt-2">
+                                                    <label for="searchCity">City</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="searchCity" id="searchCity">
+                                                        <option value="">Select</option>
+                                                        @if (count($cities))
+                                                            @foreach ($cities as $key => $value)
+                                                                <option value="{{ $value->cityName }}"
+                                                                    @if ($value->cityName == $searchCity) selected @endif>
+                                                                    {{ $value->cityName }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-2">
-                                        <label for="keyword">Name/Landmark</label>
-                                        <input type="text" name="keyword" id="keyword" class="form-control" value="{{$keyword}}">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 mt-2">
+                                                    <label for="keyword">Name/Landmark</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="keyword" id="keyword" class="form-control"
+                                                    value="{{ $keyword }}">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-2 col-sm-3">
-                                        <button title="Search" class="btn btn-social btn-just-icon btn-md btn-primary mt-4"
-                                            type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <button title="Search"
+                                                class="btn btn-social btn-just-icon btn-md btn-primary" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -65,7 +98,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr class="text-primary">
-                                            <th scope="col">No</th>
+                                            <th class="p-0" scope="col">W.No.</th>
                                             <th scope="col" class="text-center">Actions</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">address</th>
@@ -79,23 +112,24 @@
                                     </thead>
 
                                     <tbody>
-                                        @if(count($data))
+                                        @if (count($data))
                                             @php
                                                 $page = 1;
-                                                if(isset($_GET['page'])){
+                                                if (isset($_GET['page'])) {
                                                     $page = $_GET['page'];
                                                 }
                                             @endphp
                                             @foreach ($data as $key => $items)
                                                 <tr>
-                                                    <th scope="row">{{ ($key+1+($page-1)*10) }}</th>
+                                                    <th scope="row">{{ $items->wallNo, ($page - 1) * 10 }}</th>
                                                     <td class="text-center">
                                                         <button title="Size" data-toggle="modal"
                                                             class="btn btn-social btn-just-icon btn-sm btn-primary"
                                                             onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
                                                             size
                                                         </button>
-                                                        <button title="Edit" data-toggle="modal" data-target="#exampleModal"
+                                                        <button title="Edit" data-toggle="modal"
+                                                            data-target="#exampleModal"
                                                             class="btn btn-social btn-just-icon btn-sm btn-success m-1">
                                                             <i class="fa fa-pencil"></i>
                                                         </button>
@@ -113,7 +147,7 @@
                                                     <td>{{ $items->city }}</td>
                                                     {{-- <td>{{ $items->advDate }}</td> --}}
                                                     {{-- <td>{{ $items->wallRent }}</td> --}}
-                                                   
+
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -124,8 +158,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6" id="sizeDiv" style="display:none;">
-                    <div class="card">
+                <div class="col-6" id="sizeDiv" style="display:none; Position ">
+                    <div class="card" style="position: fixed;">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title align-self-center m-1" id="sizeList">Size List </h4>
                             @if (Session::get('status'))
@@ -150,20 +184,22 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Size:</label>
-                                            <input type="text" id="size" name="size" class="form-control" onkeyup="calculate_sqfeet();">
+                                            <label for="message-text" class="col-form-label">Nos:</label>
+                                            <input type="number" id="nos" name="nos" class="form-control"
+                                                onkeyup="calculate_sqfeet();" onchange="calculate_sqfeet();">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Nos:</label>
-                                            <input type="number" id="nos" name="nos" class="form-control" onkeyup="calculate_sqfeet();">
-                                        </div>  
+                                            <label for="recipient-name" class="col-form-label">Size:</label>
+                                            <input type="text" id="size" name="size" class="form-control"
+                                                onkeyup="calculate_sqfeet();">
+                                        </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Square Feet:</label>
-                                            <input type="text" id="squareFeet"  name="squareFeet"
+                                            <input type="text" id="squareFeet" name="squareFeet"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -216,7 +252,7 @@
                             text: "Data saved!",
                             type: "success"
                         }).then(function() {
-                            getSizes($("#customerId").val(),'',$("#landmarkId").val());
+                            getSizes($("#customerId").val(), '', $("#landmarkId").val());
                         });
                     } else {
                         swal({
@@ -225,16 +261,16 @@
                             type: "error"
                         }).then(function() {});
                     }
-                    
+
                 },
                 error: function(xhr) {
-                    console.log('ggg=',xhr);
+                    console.log('ggg=', xhr);
                 }
             })
 
         });
 
-        function getCities(state){
+        function getCities(state) {
             $.ajax({
                 url: "{{ route('city.get') }}",
                 type: 'get',
@@ -295,7 +331,7 @@
         //     $("#squareFeet").val(size * nos);
         // }
 
-       
+
 
         function deleteSize(id) {
             $.confirm({
@@ -354,20 +390,21 @@
 
             $("#sizeDiv").hide();
         }
+        var nos = $("#nos").val(1);
 
-        function calculate_sqfeet(){
+        function calculate_sqfeet() {
             var size = $("#size").val();
             var nos = $("#nos").val();
 
-            if(!nos){
+            if (!nos) {
                 nos = 0;
             }
 
             var sq_feet = "";
-            if(size){
+            if (size) {
                 // console.log(eval(size));
-                if(size.includes("*")){
-                    sq_feet = eval(size)*nos;
+                if (size.includes("*")) {
+                    sq_feet = eval(size) * nos;
                 }
             }
 

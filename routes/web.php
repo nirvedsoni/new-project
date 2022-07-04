@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('dealer-report-data', ['as' => 'report.datewisereport.data', 'uses' => 'ReportController@getDealerDetail']);
         Route::get('customer-report-print', ['as' => 'report.datewisereport.print', 'uses' => 'ReportController@printcustomers']);
         Route::get('total-report', ['as' => 'report.totalreport', 'uses' => 'ReportController@totalreport']);
-        // Route::get('print-customers', ['as' => 'report.printcustomers', 'uses' => 'ReportController@printcustomers']);
+        Route::get('total-report-data', ['as' => 'report.totalreport.data', 'uses' => 'totalReportController@printTotalReport']);
     });
 });
 
