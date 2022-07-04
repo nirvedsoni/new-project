@@ -109,7 +109,7 @@ class customersController extends Controller
 
         $states = state::orderBy("stateName","ASC")->get();
 
-    //    $this->add($state,$cities,$searchState,$searchCity);
+        //    $this->add($state,$cities,$searchState,$searchCity);
 
         return view('master.customer.list',compact("data","states","cities","searchState","searchCity","keyword"));
         

@@ -6,7 +6,7 @@
             </div>
         </a>--}}
         <a href="{{route('home')}}" class="simple-text logo-normal">
-            {{ __('Petrol Pump') }}
+            {{ __('Ravi Advertising') }}
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -37,13 +37,12 @@
                                 <p>{{ __('State list') }}</p>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'dealer' ? 'active' : '' }}">
+                        {{-- <li class="{{ $elementActive == 'dealer' ? 'active' : '' }}">
                             <a href="{{ route('dealer.add') }}">
-                            {{--<a href="#" onclick="open_verify_pin_modal('nozle_page');">--}}
                                 <i class="nc-icon nc-tile-56"></i>
                                 <p>{{ __('Dealer') }}</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li>

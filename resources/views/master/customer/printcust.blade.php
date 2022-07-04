@@ -242,6 +242,9 @@
             padding-top: .5rem !important;
         }
 
+       .pt1{
+        padding-top: 10px;
+        }
 
     }
 </style>
@@ -319,20 +322,20 @@
                                 @php
                                     $customerSizes = App\size::where('cust_id', $value->cust_id)->get();
                                 @endphp
-                                    @foreach ($customerSizes as $skey => $svalue)
-                                        <div class="row b-left">
-                                            <div class="col-sm-6 b">
-                                                <div class="text-center p-1 mb-0">
-                                                    <h5>{{ $svalue->size }}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 b">
-                                                <div class="text-center p-1 mb-0">
-                                                    <h5>{{ $svalue->squareFeet }}</h5>
-                                                </div>
+                                @foreach ($customerSizes as $skey => $svalue)
+                                    <div class="row b-left">
+                                        <div class="col-sm-6 b">
+                                            <div class="text-center pt1">
+                                                <h5>{{ $svalue->size }}</h5>
                                             </div>
                                         </div>
-                                    @endforeach
+                                        <div class="col-sm-6 b">
+                                            <div class="text-center pt1">
+                                                <h5>{{ $svalue->squareFeet }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

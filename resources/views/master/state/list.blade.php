@@ -9,14 +9,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card pb-1">
                         <div class="card-header d-flex justify-content-between">
-                            <h4 class="card-title align-self-center m-1">State List</h4>
-                            @if (Session::get('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ Session::get('status') }}
-                                </div>
-                            @endif
+                            {{-- <h4 class="card-title align-self-center m-1">State List</h4> --}}
                         </div>
                         <div class="card-body">
                             <div class="container">
@@ -44,7 +39,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="container">
-                                                <div class="table-responsive" style="height: 330px" >
+                                                <div class="table-responsive" style="height: 450px">
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr class="text-primary">
@@ -85,13 +80,17 @@
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <select name="stateName" class="form-control">
-                                                                        <option selected>select your options</option>
+                                                                    <select name="stateName2"
+                                                                        class="@error('stateName2') is-invalid @enderror form-control">
+                                                                        <option value="" selected>select your options</option>
                                                                         @foreach ($sData as $items)
                                                                             <option value="{{ $items->stateName }}">
                                                                                 {{ $items->stateName }}</option>
                                                                         @endforeach
                                                                     </select>
+                                                                    @error('stateName2')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -111,7 +110,7 @@
                                                                     <input type="text" name="cityName"
                                                                         class="@error('cityName') is-invalid @enderror form-control"
                                                                         placeholder="Enter City Name">
-                                                                        @error('cityName')
+                                                                    @error('cityName')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
@@ -132,7 +131,7 @@
                                                                 <input type="number" name="cityCode"
                                                                     class="@error('cityCode') is-invalid @enderror form-control"
                                                                     placeholder="Enter City Code">
-                                                                    @error('cityCode')
+                                                                @error('cityCode')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
@@ -150,7 +149,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="container">
-                                                <div class="table-responsive" style="height: 200px" >
+                                                <div class="table-responsive" style="height: 280px">
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr class="text-primary">

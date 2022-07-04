@@ -10,8 +10,8 @@
             <div class="row">
                 <div class="col-12" id="customerDiv" style="padding-right: 0px;">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <h4 class="card-title align-self-center m-1">Customer List</h4>
+                        <div class="card-header d-flex justify-content-center">
+                            {{-- <h4 class="card-title align-self-center m-1">Customer List</h4> --}}
                             @if (Session::get('cstatus'))
                                 <div class="alert alert-success" role="alert">
                                     {{ Session::get('cstatus') }}
@@ -21,13 +21,13 @@
                                 </div>
                             @endif
                             <div>
-                                <a href="{{ route('home.add') }}" class="btn btn-warning btn-round">Add New</a>
+                                <a href="{{ route('home.add') }}" class="btn btn-warning btn-round">Add New Customer</a>
                             </div>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('home.list') }}">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-3 text-center mt-2">
@@ -35,21 +35,21 @@
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <select class="form-control" name="searchState" id="searchState"
-                                                onchange="getCities(this.value);">
-                                                <option selected value="">Select</option>
-                                                @if (count($states))
-                                                    @foreach ($states as $key => $value)
-                                                        <option value="{{ $value->stateName }}"
-                                                            @if ($value->stateName == $searchState)  @endif>
-                                                            {{ $value->stateName }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
+                                                        onchange="getCities(this.value);">
+                                                        <option selected value="">Select</option>
+                                                        @if (count($states))
+                                                            @foreach ($states as $key => $value)
+                                                                <option value="{{ $value->stateName }}"
+                                                                    @if ($value->stateName == $searchState)  @endif>
+                                                                    {{ $value->stateName }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-3 mt-2">
@@ -68,10 +68,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                         
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 mt-2">
@@ -79,15 +78,15 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <input type="text" name="keyword" id="keyword" class="form-control"
-                                                    value="{{ $keyword }}">
+                                                        value="{{ $keyword }}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <button title="Search"
-                                                class="btn btn-social btn-just-icon btn-md btn-primary" type="submit">
+                                            <button title="Search" class="btn btn-social btn-just-icon btn-md btn-primary"
+                                                type="submit">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </div>
@@ -98,16 +97,16 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr class="text-primary">
-                                            <th class="p-0" scope="col">W.No.</th>
+                                            <th class="p-0" scope="col">S.No</th>
                                             <th scope="col" class="text-center">Actions</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">address</th>
                                             <th scope="col">landmark</th>
-                                            {{-- <th scope="col">wallNo</th> --}}
+                                            <th class="sh" scope="col">wallNo</th>
                                             <th scope="col">state</th>
                                             <th scope="col">City</th>
-                                            {{-- <th scope="col">advDate</th> --}}
-                                            {{-- <th scope="col">wallRent</th> --}}
+                                            <th class="sh" scope="col">advDate</th>
+                                            <th class="sh" scope="col">wallRent</th>
                                         </tr>
                                     </thead>
 
@@ -121,33 +120,31 @@
                                             @endphp
                                             @foreach ($data as $key => $items)
                                                 <tr>
-                                                    <th scope="row">{{ $items->wallNo, ($page - 1) * 10 }}</th>
+                                                    <th scope="row">{{ $key + 1, ($page - 1) * 10 }}</th>
                                                     <td class="text-center">
-                                                        <button title="Size" data-toggle="modal"
+                                                        <button title="Size"
                                                             class="btn btn-social btn-just-icon btn-sm btn-primary"
                                                             onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
                                                             size
                                                         </button>
                                                         <button title="Edit" data-toggle="modal"
                                                             data-target="#exampleModal"
-                                                            class="btn btn-social btn-just-icon btn-sm btn-success m-1">
+                                                            class="sh btn btn-social btn-just-icon btn-sm btn-success m-1">
                                                             <i class="fa fa-pencil"></i>
                                                         </button>
                                                         <button title="Delete"
-                                                            class="btn btn-social btn-just-icon btn-sm btn-danger">
-                                                            {{-- <button title="Delete" class="btn btn-social btn-just-icon btn-sm btn-danger" onclick="open_verify_pin_modal('delete_product__{{base64_encode($value->id)}}');"> --}}
+                                                            class="sh btn btn-social btn-just-icon btn-sm btn-danger">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </td>
                                                     <td>{{ $items->customerName }}</td>
                                                     <td>{{ $items->address }}</td>
                                                     <td>{{ $items->landmark }}</td>
-                                                    {{-- <td>{{ $items->wallNo }}</td> --}}
+                                                    <td class="sh">{{ $items->wallNo }}</td>
                                                     <td>{{ $items->state }}</td>
                                                     <td>{{ $items->city }}</td>
-                                                    {{-- <td>{{ $items->advDate }}</td> --}}
-                                                    {{-- <td>{{ $items->wallRent }}</td> --}}
-
+                                                    <td class="sh">{{ $items->advDate }}</td>
+                                                    <td class="sh">{{ $items->wallRent }}</td>
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -297,6 +294,7 @@
         function getSizes(cust_id, customerName, landmark) {
             $("#customerDiv").removeClass("col-12");
             $("#customerDiv").addClass("col-6");
+            $(".sh").addClass("d-none");
 
             $("#sizeDiv").show();
             $("#customerId").val(cust_id);
@@ -322,14 +320,6 @@
                 }
             });
         }
-
-        // function calc() {
-
-        //     size = $("#nos").val();
-        //     nos = $("#size").val();
-
-        //     $("#squareFeet").val(size * nos);
-        // }
 
 
 
@@ -387,6 +377,7 @@
 
             $("#customerDiv").removeClass("col-6");
             $("#customerDiv").addClass("col-12");
+            $(".sh").removeClass("d-none");
 
             $("#sizeDiv").hide();
         }

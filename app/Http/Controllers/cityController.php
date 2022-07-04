@@ -38,14 +38,14 @@ class cityController extends Controller
     {
 
         $validatedData = $request->validate([
-            'stateName' => ['required'],
+            'stateName2' => ['required'],
             'cityName' => ['required'],
             'cityCode' => ['required']
         ]);
         
         $cityData = new city;
 
-        $cityData->stateName=$request->input('stateName');
+        $cityData->stateName=$request->input('stateName2');
         $cityData->cityName=$request->input('cityName');
         $cityData->cityCode=$request->input('cityCode');
         $cityData->save();
@@ -108,7 +108,7 @@ class cityController extends Controller
 
         $cities = city::where('stateName',$state)->orderBy("cityName","ASC")->get();
 
-        $html = "<option value=''>Select</option>";
+        $html = "<option value=''>Select City</option>";
 
         if(count($cities)){
             foreach ($cities as $key => $value) {

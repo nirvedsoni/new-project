@@ -9,12 +9,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title align-self-center m-1">Date Wise Report</h4>
+                        {{-- <h4 class="card-title align-self-center m-1">Date Wise Report</h4> --}}
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-beyween">
-
-                            <div class="col-md-4">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-5 mt-2 text-center">
@@ -36,10 +35,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-3 align-self-center">
+                                        <div class="col-sm-3 align-self-center  mt-2">
                                             <label for="searchFromDate">From</label>
                                         </div>
                                         <div class="col-sm-8">
@@ -49,11 +48,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-3 align-self-center">
-                                            <label for="searchToDate">to</label>
+                                        <div class="col-sm-3 align-self-center mt-2">
+                                            <label for="searchToDate">To</label>
                                         </div>
                                         <div class="col-sm-8">
                                             <input type="date" name="searchToDate" id="searchToDate"
@@ -67,7 +66,6 @@
                                 </button>
                             </div>
                         </div>
-                        <hr>
 
                         <div class="container">
                             <div class="table-responsive">
@@ -91,7 +89,7 @@
 
                                 </table>
                                 <div class="col-sm-2 offset-10">
-                                    <button type="submit" class="btn btn-sacondary" id="print"
+                                    <button type="submit" class="btn btn-sacondary d-none" id="print"
                                         onclick='printDiv()'>Print
                                     </button>
                                 </div>
@@ -165,12 +163,16 @@
                 },
                 success: function(response) {
                     $("#customerData").html(response);
+                    $("#print").removeClass('d-none');
+
                 },
                 error: function(xhr) {
 
                 }
             });
         } else {
+            $("#print").addClass('d-none');
+
             $("#customerData").html(` <tr class="text-danger">
                                                 <th class="text-center" colspan="6">Empty</th>
                                             </tr>`);

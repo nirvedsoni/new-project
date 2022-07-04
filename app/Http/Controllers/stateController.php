@@ -41,7 +41,7 @@ class stateController extends Controller
     {
 
         $validatedData = $request->validate([
-            'stateName' => ['required']
+            'stateName' => 'required|unique:states,stateName'
         ]);
         
         $stateData = new state;
@@ -50,7 +50,7 @@ class stateController extends Controller
         $stateData->save();
 
 
-        $request->session()->flash('status', 'New State added: '.$stateData->stateName);
+        // $request->session()->flash('status', 'New State added: '.$stateData->stateName);
         return redirect()->route('master.state.list');
         
     }

@@ -9,11 +9,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title align-self-center m-1">Total Report</h4>
-                    </div>  
+                        {{-- <h4 class="card-title align-self-center m-1">Total Report</h4>  --}}
+                    </div>
                     <div class="card-body">
                         <div class="row justify-content-beyween">
-                            <div class="col-md-4">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-5 mt-2 text-center">
@@ -35,10 +35,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-3 align-self-center">
+                                        <div class="col-sm-3 align-self-center mt-2">
                                             <label for="searchFromDate">From</label>
                                         </div>
                                         <div class="col-sm-8">
@@ -48,11 +48,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-3 align-self-center">
-                                            <label for="searchToDate">to</label>
+                                        <div class="col-sm-3 align-self-center  mt-2">
+                                            <label for="searchToDate">To</label>
                                         </div>
                                         <div class="col-sm-8">
                                             <input type="date" name="searchToDate" id="searchToDate"
@@ -66,14 +66,15 @@
                             </div>
                         </div>
 
-                        <hr>
 
-                        <div id="totalData">
+                        <div class="pt-4" id="totalData">
+                            <div class="h6 pb-4">
+                                <div class="text-danger text-center">No Data</div>
+                            </div>
 
                         </div>
-                        <div class="col-sm-2 offset-10">
-                            <button type="submit" class="btn print btn-sacondary" id="print" onclick='printDiv()'>Print
-                            </button>
+                        <div class="text-center">
+                            <button type="submit" class="btn print btn-sacondary d-none m-2 " id="print" onclick='printDiv()'>Print</button>
                         </div>
                     </div>
                 </div>
@@ -91,28 +92,73 @@
         var fromDate = $("#searchFromDate").val();
         var toDate = $("#searchToDate").val();
 
-        $.ajax({
-            url: "{{ route('report.totalreport.data') }}",
-            type: 'get',
-            data: {
-                'landmark': landmarkVal,
-                'fromDate': fromDate,
-                'toDate': toDate
-            },
-            beforeSend: function() {
+        if (landmarkVal) {
 
-            },
-            success: function(response) {
-                $("#totalData").html(response);
-            },
-            error: function(xhr) {
+            $.ajax({
+                url: "{{ route('report.totalreport.data') }}",
+                type: 'get',
+                data: {
+                    'landmark': landmarkVal,
+                    'fromDate': fromDate,
+                    'toDate': toDate
+                },
+                beforeSend: function() {
 
-            }
-        });
+                },
+                success: function(response) {
+                    $("#totalData").html(response);
+                    $("#print").removeClass('d-none');
+                },
+                error: function(xhr) {
+
+                }
+            });
+
+        } else {
+            $("#print").addClass('d-none');
+
+            $("#totalData").html(`  <div class="h6 pb-4">
+                                         <div class="text-danger text-center">No Data</div>
+                                     </div>`);
+
+                                     
+
+        }
+
+
     }
 
     function printDiv() {
 
-      
+        let e = document.getElementById("optVal");
+        let landmarkVal = e.options[e.selectedIndex].value;
+
+        var fromDate = $("#searchFromDate").val();
+        var toDate = $("#searchToDate").val();
+
+        if (landmarkVal) {
+
+            $.ajax({
+                url: "{{ route('report.totalreport.data') }}",
+                type: 'get',
+                data: {
+                    'landmark': landmarkVal,
+                    'fromDate': fromDate,
+                    'toDate': toDate
+                },
+                beforeSend: function() {
+
+                },
+                success: function(response) {
+                    $.print(response);
+                },
+                error: function(xhr) {
+
+                }
+            });
+
+        } 
+
+
     }
 </script>

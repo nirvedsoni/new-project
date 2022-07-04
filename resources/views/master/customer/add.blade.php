@@ -1,7 +1,7 @@
 @extends('layouts.app', [
     'class' => '',
     'elementActive' => 'home',
-    'title' => 'Home',
+    'title' => 'Customer Add',
 ])
 
 @section('content')
@@ -19,10 +19,10 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title align-self-center m-1">Customer Add</h5>
+                    <div class="card-header d-flex justify-content-center">
+                        {{-- <h5 class="card-title align-self-center m-1">Customer Add</h5> --}}
                         <div>
-                            <a href="{{ route('home.list') }}" class="btn btn-warning btn-round">List</a>
+                            <a href="{{ route('home.list') }}" class="btn btn-warning btn-round">Customer List</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -114,7 +114,7 @@
                                                 <label for="inputState">State</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="state" id="searchState" ;
+                                                <select name="state" id="searchState" onchange="getCities(this.value);" ;
                                                     class="@error('state') is-invalid @enderror form-control">
                                                     <option selected value="">Select State...</option>
                                                     @foreach ($sData as $items)
@@ -137,12 +137,9 @@
                                                 <label for="inputState">City</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="City" id="inputState" class=" @error('state') is-invalid @enderror form-control">
-                                                    <option selected value="" >Select City...</option>
-                                                    @foreach ($cData as $items)
-                                                        <option value="{{ $items->cityName }}">{{ $items->cityName }}
-                                                        </option>
-                                                    @endforeach
+                                                <select name="City" id="city"
+                                                    class=" @error('state') is-invalid @enderror form-control">
+                                                    <option selected value="">No Cities</option>
                                                 </select>
                                                 @error('City')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -200,25 +197,24 @@
 @endsection
 
 <script>
-//     function getCities(state) {
 
-//         console.log(state)
+    function getCities(state) {
+        $.ajax({
+            url: "{{ route('city.get') }}",
+            type: 'get',
+            data: {
+                'state': state
+            },
+            beforeSend: function() {
 
-//         $.ajax({
-//             url: "{{ route('city.get') }}",
-//             type: 'get',
-//             data: {
-//                 'state': state
-//             },
-//             beforeSend: function() {
+            },
+            success: function(response) {
+                $("#city").html(response);
+            },
+            error: function(xhr) {
 
-//             },
-//             success: function(response) {
-//                 $("#searchCity").html(response);
-//             },
-//             error: function(xhr) {
+            }
+        });
+    }
 
-//             }
-//         });
-//     }
-// </script>
+</script>
