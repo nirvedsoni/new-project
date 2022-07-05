@@ -28,7 +28,7 @@ class totalReportController extends Controller
 
         // $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
 
-        return view("master.customer.printTotalReport",["totalData"=> $totalData]);
+        return view("master.customer.printTotalReport",["totalData"=> $totalData,"landmark"=>$customerLand]);
 
     }
 }

@@ -3,7 +3,7 @@
         .print-div {
             color: black;
             /* padding: 40px 40px; */
-            padding: 80px 40px 40px;
+            padding: 80px 20px 40px;
         }
 
         .page-break {
@@ -242,110 +242,117 @@
             padding-top: .5rem !important;
         }
 
-       .pt1{
-        padding-top: 10px;
+        .pt1 {
+            padding-top: 10px;
+        }
+        .pt2 {
+            padding-top: 20px;
         }
 
     }
 </style>
 
 
+<div class="pt2">
+    @if (count($customersData))
+        @foreach ($customersData as $key => $value)
+            <div class="print-div">
 
-@if (count($customersData))
-    @foreach ($customersData as $key => $value)
-        <div class="print-div">
+                <div class="container">
+                    <div class="card b" style="border: 1px solid black;  border-radius: 0px; ">
+                        <div class="card-body py-0">
+                            <div class="row">
+                                <div class="col-sm-8 pt-0  b-right">
+                                    <div class="row b-btm text-center">
+                                        <div class="col-sm-4 b-right">
+                                            <h5 class="color-black">{{ $value->landmark }}</h5>
+                                        </div>
+                                        <div class="col-sm-4 b-right">
+                                            <h5>{{ $value->city }}</h5>
+                                        </div>
+                                        <div class="col-sm-4 b-right">
+                                            <h5>{{ $value->state }}</h5>
+                                        </div>
+                                    </div>
 
-            <div class="container">
-                <div class="card b" style="border: 1px solid black;  border-radius: 0px; ">
-                    <div class="card-body py-0">
-                        <div class="row">
-                            <div class="col-sm-9 pt-0  b-right">
-                                <div class="row b-btm text-center">
-                                    <div class="col-sm-4 b-right">
-                                        <h5 class="color-black">{{ $value->landmark }}</h5>
-                                    </div>
-                                    <div class="col-sm-4 b-right">
-                                        <h5>{{ $value->city }}</h5>
-                                    </div>
-                                    <div class="col-sm-4 b-right">
-                                        <h5>{{ $value->state }}</h5>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="pic"style="height: 500px;">
-                                        <h1></h1>
-                                    </div>
-                                </div>
-                                <div class="row b  pt-2">
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col-sm-3">Place </div>
-                                            <div class="col-sm-6 h6">{{ $value->address }}</div>
+                                    <div class="row">
+                                        <div class="pic"style="height: 450px;">
+                                            <h1></h1>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="row">
-                                            <div class="col-sm-7">wall No. </div>
-                                            <div class="col-sm-5 h6">{{ $value->wallNo }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col-sm-3">Customer </div>
-                                            <div class="col-sm-6 h6">{{ $value->customerName }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="row">
-                                            <div class="col-sm-7">wall Rent </div>
-                                            <div class="col-sm-5 h6">{{ $value->wallRent }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col-sm-3">Date </div>
-                                            <div class="col-sm-6 h6">{{ $value->advDate }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="row b-btm text-center">
-                                    <div class="col-sm-6 b-right">
-                                        <h5>size</h5>
-                                    </div>
-                                    <div class="col-sm-6 b-right">
-                                        <h5>SQ.FEET</h5>
-                                    </div>
-                                </div>
-                                @php
-                                    $customerSizes = App\size::where('cust_id', $value->cust_id)->get();
-                                @endphp
-                                @foreach ($customerSizes as $skey => $svalue)
-                                    <div class="row b-left">
-                                        <div class="col-sm-6 b">
-                                            <div class="text-center pt1">
-                                                <h5>{{ $svalue->size }}</h5>
+                                    <div class="row b  pt-2">
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-3">Place </div>
+                                                <div class="col-sm-6 h6">{{ $value->address }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 b">
-                                            <div class="text-center pt1">
-                                                <h5>{{ $svalue->squareFeet }}</h5>
+                                        <div class="col-sm-3">
+                                            <div class="row">
+                                                <div class="col-sm-7">wall No. </div>
+                                                <div class="col-sm-5 h6">{{ $value->wallNo }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-3">Customer </div>
+                                                <div class="col-sm-6 h6">{{ $value->customerName }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="row">
+                                                <div class="col-sm-7">wall Rent </div>
+                                                <div class="col-sm-5 h6">{{ $value->wallRent }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-3">Date </div>
+                                                <div class="col-sm-6 h6">{{ $value->advDate }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row b-btm text-center">
+                                        <div class="col-sm-7 b-right">
+                                            <h5>size</h5>
+                                        </div>
+                                        <div class="col-sm-5 b-right">
+                                            <h5>SQ.FEET</h5>
+                                        </div>
+                                    </div>
+                                    @php
+                                        $customerSizes = App\size::where('cust_id', $value->cust_id)->get();
+                                    @endphp
+                                    @foreach ($customerSizes as $skey => $svalue)
+                                        <div class="row b-left">
+                                            <div class="col-sm-7 b">
+                                                <div class="text-center pt1">
+                                                    <h5>{{ $svalue->size }} @if ($svalue->nos > 1)
+                                                            X {{ $svalue->nos }}
+                                                        @endif
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 b">
+                                                <div class="text-center pt1">
+                                                    <h5>{{ $svalue->squareFeet }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            @if ($loop->even)
-                <div class="page-break"></div>
-                {{-- also use this <div style="break-after:page"></div> --}}
-            @endif
-        </div>
-    @endforeach
-@endif
+                @if ($loop->even)
+                    <div class="page-break"></div>
+                    {{-- also use this <div style="break-after:page"></div> --}}
+                @endif
+            </div>
+        @endforeach
+    @endif
+</div>

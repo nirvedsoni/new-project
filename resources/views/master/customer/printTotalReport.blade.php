@@ -10,11 +10,13 @@
 
 <div class="print-div">
     <div class="container">
-        <div class="head border-1 ">
-            <div class="row">
+        <div class="head" style="border: 1px solid black;">
+            <div class="row p-2" style="justify-content: center;">
                 @if (count($totalData))
-                LIST OF PAINTING OF YOUR HONOURABLE PRODUCT OF <h6>  {{ $totalData[0]->landmark }}
-                        {{ $totalData[0]->city }} {{ $totalData[0]->state }} </h6>
+                    <p class="mb-0"> LIST OF PAINTING OF YOUR HONOURABLE PRODUCT OF:</p>
+                    <h6 class="ml-5 mb-0"> {{ $totalData[0]->landmark }}</h6>
+                    <h6 class="ml-5 mb-0"> {{ $totalData[0]->city }}</h6>
+                    <h6 class="ml-5 mb-0"> {{ $totalData[0]->state }} </h6>
                 @endif
             </div>
         </div>
@@ -34,14 +36,19 @@
                     @foreach ($totalData as $key => $value)
                         @php
                             $totalSizes = App\size::where('cust_id', $value->cust_id)->get();
-                        @endphp
+                        @endphp 
+                        
+                    
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $value->customerName }}, {{ $value->address }}</td>
                             <td>
                                 @if (count($totalSizes))
                                     @foreach ($totalSizes as $skey => $svalue)
-                                        <p>{{ $svalue->size }}</p>
+                                        <p>{{ $svalue->size }} @if ($svalue->nos > 1)
+                                                X{{ $svalue->nos }} (NOS)
+                                            @endif
+                                        </p>
                                     @endforeach
                                 @endif
                             </td>
@@ -65,8 +72,26 @@
                                 <td></td>
                             </tr>
                         @endif
+
+                        
                     @endforeach
+                    @php
+                        $totalSquareFeet = App\size::where('landmark', $landmark)->get();
+                    @endphp
+
+                    @if (count($totalSquareFeet))
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Grand Total</strong></td>
+                            <td>
+                                <strong>{{ $totalSquareFeet->sum('squareFeet') }}</strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endif
                 @endif
+
 
             </tbody>
 

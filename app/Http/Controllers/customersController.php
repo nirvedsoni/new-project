@@ -113,7 +113,6 @@ class customersController extends Controller
 
         return view('master.customer.list',compact("data","states","cities","searchState","searchCity","keyword"));
         
-
     }
 
     /**
@@ -152,17 +151,18 @@ class customersController extends Controller
 
     public function add(){
 
-        // $state = $state ;
-        // $city = $city ;
-        // $searchState = $searchState;
-        // $searchCity =$searchCity;
-        
-
-
-        $sData = state::all() ;
+        $sData = state::all();
         $cData = city::all();
 
 
         return view("master.customer.add",compact("sData","cData"));
     }
+
+    // public function edit(){
+
+    //     $sData = state::all() ;
+    //     $cData = city::all();
+
+    //     return view("master.customer.edit",compact("sData","cData"));
+    // }
 }   

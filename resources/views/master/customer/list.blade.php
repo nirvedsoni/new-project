@@ -127,8 +127,8 @@
                                                             onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
                                                             size
                                                         </button>
-                                                        <button title="Edit" data-toggle="modal"
-                                                            data-target="#exampleModal"
+                                                        <button title="Edit" 
+                                                        onclick="edit('{{ $items->cust_id }}');"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-success m-1">
                                                             <i class="fa fa-pencil"></i>
                                                         </button>
@@ -168,7 +168,7 @@
                                 </div>
                             @endif
                             <div>
-                                <button type="button" class="btn btn-warning btn-round"
+                                <button type="button" class="btn btn-danger btn-round"
                                     onclick="closeSizeDiv();">Close</button>
                             </div>
                         </div>
@@ -235,6 +235,14 @@
             </div>
         </div>
     </div>
+
+
+    {{-- edit modal  --}}
+
+
+    @include('master.customer.edit')
+
+    
     <script>
         $('#sizeSubmit').click(function() {
             $.ajax({
@@ -381,6 +389,7 @@
 
             $("#sizeDiv").hide();
         }
+
         var nos = $("#nos").val(1);
 
         function calculate_sqfeet() {
@@ -401,5 +410,15 @@
 
             $("#squareFeet").val(sq_feet);
         }
+
+        function edit(id) {
+
+            $('#editmodal').modal('show');
+      
+        }
+
+
     </script>
+
+    
 @endsection
