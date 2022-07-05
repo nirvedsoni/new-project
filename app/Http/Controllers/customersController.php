@@ -144,9 +144,15 @@ class customersController extends Controller
      * @param  \App\customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(customer $customer)
+    public function destroy(Request $request)
     {
-        //
+
+        $custId = customer::where('cust_id',$request->custId)->delete();
+        $custId = size::where('cust_id',$request->custId)->delete();
+
+        echo true ;
+
+        
     }
 
     public function add(){
@@ -158,11 +164,5 @@ class customersController extends Controller
         return view("master.customer.add",compact("sData","cData"));
     }
 
-    // public function edit(){
 
-    //     $sData = state::all() ;
-    //     $cData = city::all();
-
-    //     return view("master.customer.edit",compact("sData","cData"));
-    // }
 }   

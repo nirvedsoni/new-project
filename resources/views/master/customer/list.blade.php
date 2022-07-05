@@ -132,7 +132,7 @@
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-success m-1">
                                                             <i class="fa fa-pencil"></i>
                                                         </button>
-                                                        <button title="Delete"
+                                                        <button title="Delete" onclick="deleteCustomer('{{ $items->cust_id }}');"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-danger">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
@@ -155,6 +155,10 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{-- size div  --}}
+
                 <div class="col-6" id="sizeDiv" style="display:none; Position ">
                     <div class="card" style="position: fixed;">
                         <div class="card-header d-flex justify-content-between">
@@ -224,7 +228,6 @@
                                             <tr class="text-danger">
                                                 <th class="text-center" colspan="5">Empty</th>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -245,27 +248,29 @@
     
     <script>
         $('#sizeSubmit').click(function() {
+
             $.ajax({
                 url: "sizeStore",
                 data: $('form').serialize(),
                 type: 'post',
                 success: function(result) {
                     // alert(result);
-                    if (result) {
-                        swal({
-                            title: "Alert!",
-                            text: "Data saved!",
-                            type: "success"
-                        }).then(function() {
-                            getSizes($("#customerId").val(), '', $("#landmarkId").val());
-                        });
-                    } else {
-                        swal({
-                            title: "Alert!",
-                            text: "Something went wrong!",
-                            type: "error"
-                        }).then(function() {});
-                    }
+                    // if (result) {
+                    //     swal({
+                    //         title: "Alert!",
+                    //         text: "Data saved!",
+                    //         type: "success"
+                    //     }).then(function() {
+                    //     });
+                    // } else {
+                    //     swal({
+                    //         title: "Alert!",
+                    //         text: "Something went wrong!",
+                    //         type: "error"
+                    //     }).then(function() {});
+                    // }
+                    getSizes($("#customerId").val(), '', $("#landmarkId").val());
+
 
                 },
                 error: function(xhr) {
@@ -330,6 +335,53 @@
         }
 
 
+        function deleteCustomer(custId) {
+            $.confirm({
+                title: 'Alert!',
+                content: 'Are you sure to delete customer and sizes?',
+                buttons: {
+                    confirm: {
+                        text: 'Confirm',
+                        btnClass: 'btn-red',
+                        action: function() {
+                            $.ajax({
+                                url: "{{ route('customer.delete') }}",
+                                type: 'get',
+                                data: {
+                                    'custId': custId
+                                },
+                                beforeSend: function() {
+
+                                },
+                                success: function(response) {
+                                    if (response == true) {
+                                        swal({
+                                            title: "Alert!",
+                                            text: "Customer deleted!",
+                                            type: "success"
+                                        }).then(function() {
+                                            window.reload();
+                                        });
+                                    } else {
+                                        swal({
+                                            title: "Alert!",
+                                            text: "Someting went wrong!",
+                                            type: "error"
+                                        }).then(function() {});
+                                    }
+                                },
+                                error: function(xhr) {
+                                    console.log('dlt eror=>',xhr)
+
+                                }
+                            });
+                        }
+                    },
+                    cancel: function() {}
+                }
+            });
+            
+        }
 
         function deleteSize(id) {
             $.confirm({
@@ -356,7 +408,7 @@
                                             text: "Size deleted!",
                                             type: "success"
                                         }).then(function() {
-                                            getSizes($("#customerId").val(), '');
+                                            getSizes($("#customerId").val(), '', $("#landmarkId").val());
                                         });
                                     } else {
                                         swal({

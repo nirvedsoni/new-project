@@ -47,21 +47,25 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 	/*Dealer*/
-    Route::prefix('dealer')->group(function () {
-        Route::get('add', ['as' => 'dealer.add', 'uses' => 'dealerController@add']);
-        Route::post('store', ['as' => 'dealer.add', 'uses' => 'dealerController@store']);
-        Route::get('list', ['as' => 'dealer.list', 'uses' => 'dealerController@list']);
-        Route::get('delete/{id}', ['as' => 'dealer.delete', 'uses' => 'dealerController@destroy']);
-        Route::post('store', ['as' => 'nozle.store', 'uses' => 'dealerController@store']);
-        Route::post('update', ['as' => 'nozle.update', 'uses' => 'dealerController@update']);
-        Route::get('delete', ['as' => 'nozle.delete', 'uses' => 'dealerController@delete']);
-    });
+    // Route::prefix('dealer')->group(function () {
+    //     Route::get('add', ['as' => 'dealer.add', 'uses' => 'dealerController@add']);
+    //     Route::post('store', ['as' => 'dealer.add', 'uses' => 'dealerController@store']);
+    //     Route::get('list', ['as' => 'dealer.list', 'uses' => 'dealerController@list']);
+    //     Route::get('delete/{id}', ['as' => 'dealer.delete', 'uses' => 'dealerController@destroy']);
+    //     Route::post('store', ['as' => 'nozle.store', 'uses' => 'dealerController@store']);
+    //     Route::post('update', ['as' => 'nozle.update', 'uses' => 'dealerController@update']);
+    //     Route::get('delete', ['as' => 'nozle.delete', 'uses' => 'dealerController@delete']);
+    // });
 
 	/*Home*/
+	/*Customer*/
     Route::prefix('home')->group(function () {
         Route::get('add', ['as' => 'home.add', 'uses' => 'customersController@add']);
         Route::get('list', ['as' => 'home.list', 'uses' => 'customersController@show']);
         Route::post('store', ['as' => 'home.store', 'uses' => 'customersController@store']);
+        Route::get('delete', ['as' => 'customer.delete', 'uses' => 'customersController@destroy']);
+
+        // size 
         Route::post('sizeStore', ['as' => 'home.sizeStore', 'uses' => 'sizesController@storee']);
         // Route::get('sizedelete/{id}', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
         Route::get('sizedelete', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
