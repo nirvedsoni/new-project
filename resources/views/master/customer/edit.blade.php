@@ -209,7 +209,7 @@
             },
             success: function($response) {
                 console.log('1st');
-                getEditCities($response[0].state);
+                getEditCities($response[0].state,$response[0].city);
                 setData($response);
 
             },
@@ -220,7 +220,7 @@
 
     }
 
-    function getEditCities(state) {
+    function getEditCities(state, city) {
         console.log('2nd');
         $.ajax({
             url: "{{ route('city.get') }}",
@@ -233,6 +233,7 @@
             },
             success: function(response) {
                 $("#city").html(response);
+                $('#city').val(city);
             },
             error: function(xhr) {
 
@@ -250,7 +251,7 @@
         $('#landmark').val($response[0].landmark);
         $('#wallNo').val($response[0].wallNo);
         $('#state').val($response[0].state);
-        $('#city').val($response[0].city);
+        // $('#city').val($response[0].city);
         $('#advDate').val($response[0].advDate);
         $('#wallRent').val($response[0].wallRent);
 

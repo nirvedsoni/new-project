@@ -173,7 +173,7 @@
                                 @csrf()
                                 @method('put')
                                 <input type="hidden" name="cust_id" id="customerId">
-                                <input type="hidden" name="landmark1" id="landmarkId">
+                                <input type="hidden" name="landmark" id="landmarkId">
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
