@@ -1,18 +1,35 @@
 <style type="text/css">
+    
+
     @media print {
         .print-div {
-            color: black;
-            /* padding: 40px 40px; */
-            padding: 80px 20px 40px;
+            /* color: rgb(255, 255, 255); */
+            padding: 0px 0px;
+            margin: 0px 0px;
+        }
+
+
+        @page {
+            margin-top: 100px;
+         }
+
+        .pt-2,
+        .py-2 {
+            padding-top: .5rem !important;
+        }
+
+        .pt1 {
+            padding-top: 10px;
+        }
+
+        .m-1 {
+            padding-top: 50px;
         }
 
         .page-break {
             page-break-after: always;
+            padding-top: 50px;
         }
-
-        /* @page {
-            margin: 2cm;
-        } */
 
         .table-bordered thead tr th,
         .table-bordered tbody tr td,
@@ -202,21 +219,21 @@
         }
 
         .b-btm {
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid rgba(165, 165, 165, 0.473);
         }
 
         .b-right {
-            border-right: 1px solid black;
+            border-right: 1px solid rgba(165, 165, 165, 0.473);
             padding-top: 10px;
         }
 
         .b-left {
-            border-left: 1px solid black;
+            border-left: 1px solid rgba(165, 165, 165, 0.473);
 
         }
 
         .b {
-            border: 1px solid black;
+            border: 1px solid rgba(165, 165, 165, 0.473);
             border-radius: 0px;
         }
 
@@ -237,17 +254,6 @@
             text-transform: uppercase;
         }
 
-        .pt-2,
-        .py-2 {
-            padding-top: .5rem !important;
-        }
-
-        .pt1 {
-            padding-top: 10px;
-        }
-        .pt2 {
-            padding-top: 20px;
-        }
 
     }
 </style>
@@ -257,9 +263,8 @@
     @if (count($customersData))
         @foreach ($customersData as $key => $value)
             <div class="print-div">
-
                 <div class="container">
-                    <div class="card b" style="border: 1px solid black;  border-radius: 0px; ">
+                    <div class="card b" style="border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
                         <div class="card-body py-0">
                             <div class="row">
                                 <div class="col-sm-8 pt-0  b-right">
@@ -281,34 +286,34 @@
                                         </div>
                                     </div>
                                     <div class="row b  pt-2">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-sm-3">Place </div>
-                                                <div class="col-sm-6 h6">{{ $value->address }}</div>
+                                                <div class="col-sm-9 h6">{{ $value->address }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="row">
-                                                <div class="col-sm-7">wall No. </div>
-                                                <div class="col-sm-5 h6">{{ $value->wallNo }}</div>
+                                                <div class="col-sm-6">wall No. </div>
+                                                <div class="col-sm-6 h6">{{ $value->wallNo }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-sm-3">Customer </div>
-                                                <div class="col-sm-6 h6">{{ $value->customerName }}</div>
+                                                <div class="col-sm-9 h6">{{ $value->customerName }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="row">
-                                                <div class="col-sm-7">wall Rent </div>
-                                                <div class="col-sm-5 h6">{{ $value->wallRent }}</div>
+                                                <div class="col-sm-6">wall Rent </div>
+                                                <div class="col-sm-6 h6">{{ $value->wallRent }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-sm-3">Date </div>
-                                                <div class="col-sm-6 h6">{{ $value->advDate }}</div>
+                                                <div class="col-sm-8 h6">{{ $value->advDate }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -349,7 +354,7 @@
                 </div>
 
                 @if ($loop->even)
-                    <div class="page-break"></div>
+                    <div class="page-break" style="margin-top: 100px"></div>
                     {{-- also use this <div style="break-after:page"></div> --}}
                 @endif
             </div>

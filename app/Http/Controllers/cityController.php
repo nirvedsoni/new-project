@@ -108,7 +108,7 @@ class cityController extends Controller
 
         $cities = city::where('stateName',$state)->orderBy("cityName","ASC")->get();
 
-        $html = "<option value=''>Select City</option>";
+        $html = '';
 
         if(count($cities)){
             foreach ($cities as $key => $value) {

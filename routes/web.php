@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('add', ['as' => 'home.add', 'uses' => 'customersController@add']);
         Route::get('list', ['as' => 'home.list', 'uses' => 'customersController@show']);
         Route::post('store', ['as' => 'home.store', 'uses' => 'customersController@store']);
+        Route::get('edit', ['as' => 'home.edit', 'uses' => 'customersController@edit']);
+        Route::put('update', ['as' => 'home.update', 'uses' => 'customersController@update']);
         Route::get('delete', ['as' => 'customer.delete', 'uses' => 'customersController@destroy']);
 
         // size 

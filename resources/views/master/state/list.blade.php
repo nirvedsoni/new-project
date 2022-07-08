@@ -54,10 +54,10 @@
                                                                     <th scope="row">{{ $key + 1 }}</th>
                                                                     <td>{{ $items->stateName }}</td>
                                                                     <td class="text-center">
-                                                                        <a href="statedelete/{{ $items->state_id }}"
+                                                                        <button onclick="stateDelete('{{ $items->state_id }}');"
                                                                             class="btn btn-social btn-just-icon btn-sm btn-danger">
                                                                             <i class="fa fa-trash"></i>
-                                                                        </a>
+                                                                        </button>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -82,7 +82,8 @@
                                                                 <div class="form-group">
                                                                     <select name="stateName2"
                                                                         class="@error('stateName2') is-invalid @enderror form-control">
-                                                                        <option value="" selected>select your options</option>
+                                                                        <option value="" selected>select your options
+                                                                        </option>
                                                                         @foreach ($sData as $items)
                                                                             <option value="{{ $items->stateName }}">
                                                                                 {{ $items->stateName }}</option>
@@ -168,9 +169,10 @@
                                                                     <td>{{ $items->cityName }}</td>
                                                                     <td>{{ $items->cityCode }}</td>
                                                                     <td class="text-center">
-                                                                        <a href="citydelete/{{ $items->city_id }}"
-                                                                            class="btn btn-social btn-just-icon btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
+                                                                        <button onclick="cityaDelete('{{ $items->city_id }}');"
+                                                                            class="btn btn-social btn-just-icon btn-sm btn-danger">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -190,3 +192,50 @@
     </div>
     </div>
 @endsection
+
+<script>
+
+
+ function stateDelete($stateId) {
+    $.confirm({
+        title: 'Alert!',
+        content: 'Are you sure to delete this state?',
+        buttons: {
+            confirm: {
+                text: 'Confirm',
+                btnClass: 'btn-red',
+                action: function() {
+                    location.href ="statedelete/"+$stateId;
+                }
+            },
+            cancel: function() {
+
+            }
+        }
+    });
+ }
+
+
+
+ function cityaDelete($cityId) {
+    $.confirm({
+        title: 'Alert!',
+        content: 'Are you sure to delete this city?',
+        buttons: {
+            confirm: {
+                text: 'Confirm',
+                btnClass: 'btn-red',
+                action: function() {
+                    location.href ="citydelete/"+$cityId;
+                }
+            },
+            cancel: function() {
+
+            }
+        }
+    });
+ }
+
+
+   
+</script>

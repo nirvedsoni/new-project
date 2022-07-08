@@ -57,7 +57,7 @@
                                                 </div>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="searchCity" id="searchCity">
-                                                        <option value="">Select</option>
+                                                        <option value="">No Cities</option>
                                                         @if (count($cities))
                                                             @foreach ($cities as $key => $value)
                                                                 <option value="{{ $value->cityName }}"
@@ -128,9 +128,9 @@
                                                             size
                                                         </button>
                                                         <button title="Edit" 
-                                                        onclick="edit('{{ $items->cust_id }}');"
+                                                        onclick="editCustomer({{ $items->cust_id }});"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-success m-1">
-                                                            <i class="fa fa-pencil"></i>
+                                                            <i class="fa fa-pen"></i>
                                                         </button>
                                                         <button title="Delete" onclick="deleteCustomer('{{ $items->cust_id }}');"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-danger">
@@ -163,14 +163,6 @@
                     <div class="card" style="position: fixed;">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title align-self-center m-1" id="sizeList">Size List </h4>
-                            @if (Session::get('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ Session::get('status') }}
-                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close">delete
-                                    </button> --}}
-                                </div>
-                            @endif
                             <div>
                                 <button type="button" class="btn btn-danger btn-round"
                                     onclick="closeSizeDiv();">Close</button>
@@ -181,7 +173,7 @@
                                 @csrf()
                                 @method('post')
                                 <input type="hidden" name="cust_id" id="customerId">
-                                <input type="hidden" name="landmark" id="landmarkId">
+                                <input type="hidden" name="landmark1" id="landmarkId">
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
@@ -240,8 +232,6 @@
     </div>
 
 
-    {{-- edit modal  --}}
-
 
     @include('master.customer.edit')
 
@@ -299,11 +289,6 @@
             });
         }
 
-        // function getCustomer(cust_id) {
-        //     $("#customerId").val(cust_id);
-        //     document.getElementById("sizeList").innerHTML = "Size List of " + cust_id;
-        // }
-
         function getSizes(cust_id, customerName, landmark) {
             $("#customerDiv").removeClass("col-12");
             $("#customerDiv").addClass("col-6");
@@ -357,10 +342,11 @@
                                     if (response == true) {
                                         swal({
                                             title: "Alert!",
-                                            text: "Customer deleted!",
+                                            text: "Customer and sizes deleted!",
                                             type: "success"
                                         }).then(function() {
-                                            window.reload();
+                                            // location.href = "list";
+                                            location.reload();
                                         });
                                     } else {
                                         swal({
@@ -463,11 +449,6 @@
             $("#squareFeet").val(sq_feet);
         }
 
-        function edit(id) {
-
-            $('#editmodal').modal('show');
-      
-        }
 
 
     </script>

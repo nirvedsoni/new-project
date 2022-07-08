@@ -63,7 +63,7 @@
                             <a href="{{ route('report.datewisereport') }}">
                             {{--<a href="#" onclick="open_verify_pin_modal('product_page');">--}}
                                 <i class="nc-icon nc-tile-56"></i>
-                                <p>{{ __('Dealer Report') }}</p>
+                                <p>{{ __('Date Wise Report') }}</p>
                             </a>
                         </li>
                         <li class="{{ $elementActive == 'totalreport' ? 'active' : '' }}">

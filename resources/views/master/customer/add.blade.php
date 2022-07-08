@@ -36,14 +36,13 @@
                                                 <label for="">Customer Name</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="customerName"
+                                                <input type="text" name="customerName" value="{{ old('customerName') }}"
                                                     class="@error('customerName') is-invalid @enderror form-control"
                                                     placeholder="Enter Customer Name">
                                                 @error('customerName')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -54,14 +53,13 @@
                                                 <label for="">Address</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="address"
+                                                <input type="text" name="address" value="{{ old('address') }}"
                                                     class="@error('address') is-invalid @enderror form-control"
                                                     placeholder="Enter Address">
                                                 @error('address')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -75,14 +73,13 @@
                                                 <label for="">Landmark</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="landmark"
+                                                <input type="text" name="landmark" value="{{ old('landmark') }}"
                                                     class="@error('landmark') is-invalid @enderror form-control"
                                                     placeholder="Enter Landmark">
                                                 @error('landmark')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -93,14 +90,13 @@
                                                 <label for="">Wall No.</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="wallNo"
+                                                <input type="text" name="wallNo" value="{{ old('wallNo') }}"
                                                     class="@error('wallNo') is-invalid @enderror form-control"
                                                     placeholder="Enter Wall No">
                                                 @error('wallNo')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -116,12 +112,10 @@
                                             <div class="col-sm-7">
                                                 <select name="state" id="searchState" onchange="getCities(this.value);" ;
                                                     class="@error('state') is-invalid @enderror form-control">
-                                                    <option selected value="">Select State...</option>
+                                                    <option value="">Select State...</option>
                                                     @foreach ($sData as $items)
-                                                        <option value="{{ $items->stateName }}">{{ $items->stateName }}
-                                                        </option>
+                                                        <option value="{{ $items->stateName }}" @if ($items->stateName == old('stateName')) selected @endif >{{ $items->stateName }}</option>
                                                     @endforeach
-
                                                 </select>
                                                 @error('state')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -139,7 +133,7 @@
                                             <div class="col-sm-7">
                                                 <select name="City" id="city"
                                                     class=" @error('state') is-invalid @enderror form-control">
-                                                    <option selected value="">No Cities</option>
+                                                    <option selected  value="{{ old('city') }}">No Cities</option>
                                                 </select>
                                                 @error('City')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -158,13 +152,12 @@
                                                 <label for="">Adv. Date</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input name="advDate" type="date"
+                                                <input name="advDate" type="date" value="{{ old('advDate') }}"
                                                     class="@error('advDate') is-invalid @enderror form-control">
                                                 @error('advDate')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -175,14 +168,13 @@
                                                 <label for="">Wall Rent</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="wallRent"
+                                                <input type="text" name="wallRent" value="{{ old('wallRent') }}"
                                                     class="@error('wallRent') is-invalid @enderror form-control"
                                                     placeholder="Enter Wall Rent">
                                                 @error('wallRent')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -216,5 +208,6 @@
             }
         });
     }
+
 
 </script>

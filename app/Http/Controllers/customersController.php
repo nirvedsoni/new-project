@@ -121,10 +121,14 @@ class customersController extends Controller
      * @param  \App\customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(customer $customer)
+    public function edit(Request $request,  customer $customer)
     {
-        //
-    }
+        $id = $request->cust_id;
+
+        $all=  customer::where('cust_id',$id)->get();
+        
+        return $all;
+    }   
 
     /**
      * Update the specified resource in storage.
@@ -135,7 +139,67 @@ class customersController extends Controller
      */
     public function update(Request $request, customer $customer)
     {
-        //
+
+        $validatedData = $request->validate([
+            'editcustomerName' => ['required'],
+            'editaddress' => ['required'],
+            'editlandmark' => ['required'],
+            'editwallNo' => ['required'],
+            'editstate' => ['required'],
+            'editCity' => ['required'],
+            'editadvDate' => ['required'],
+            'editwallRent' => ['required'],
+        ]);
+        
+        $cust_id = $request->input('cust_id');
+        $customerName = $request->input('editcustomerName');
+        $address = $request->input('editaddress');
+        $landmark = $request->input('editlandmark');
+        $wallNo = $request->input('editwallNo');
+        $state = $request->input('editstate');
+        $city = $request->input('editcity');
+        $advDate = $request->input('editadvDate');
+        $wallRent = $request->input('editwallRent');
+
+        $updateData = customer::where("cust_id",$cust_id)->update([
+
+            'cust_id' => $cust_id ,
+            'customerName' => $customerName ,
+            'address' => $address ,
+            'landmark' => $landmark ,
+            'wallNo' => $wallNo ,
+            'state' => $state ,
+            'city' => $city ,
+            'advDate' => $advDate ,
+            'wallRent' => $wallRent
+        
+        ]);
+
+        $updateSize = size::where("cust_id",$cust_id)->update([
+
+            'landmark' => $landmark,
+        
+        ]);
+
+
+        return redirect()->route('home.list');
+
+
+        
+        // $updateData->cust_id = $cust_id;
+        // $updateData->customerName = $customerName;
+        // $updateData->address = $address;
+        // $updateData->landmark = $landmark;
+        // $updateData->wallNo = $wallNo;
+        // $updateData->state = $state;
+        // $updateData->city = $city;
+        // $updateData->advDate = $advDate;
+        // $updateData->wallRent = $wallRent;
+        // $updateData->update();
+        // $updateData->save();
+
+        // return response()->json($updateData, 200);
+
     }
 
     /**

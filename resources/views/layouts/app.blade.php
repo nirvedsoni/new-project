@@ -30,24 +30,18 @@ The above copyright notice and this permission notice shall be included in all c
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" /> --}}
+    <link href="{{ asset('paper') }}/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="{{ asset('paper') }}/css/bootstrap.min.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+    <link href="{{ asset('paper') }}/css/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="{{ asset('paper') }}/css/sweetalert2.min.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
     <script src="{{ asset('paper') }}/js/core/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
 
-    <!-- Google Tag Manager -->
-    <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NKDMSK6');</script> -->
-    <!-- End Google Tag Manager -->
+    
     <style type="text/css">
         /*Hidden class for adding and removing*/
         .lds-dual-ring.hidden {
@@ -208,10 +202,10 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('paper') }}/demo/demo.js"></script>
     <script src="{{ asset('paper') }}/js/jQuery.print.js" type="text/javascript"></script>
+    <script src="{{ asset('paper') }}/js/jquery-confirm.min.js" type="text/javascript"></script>
+    <script src="{{ asset('paper') }}/js/sweetalert2.min.js" type="text/javascript"></script>
     <!-- Sharrre libray -->
     <!-- <script src="../assets/demo/jquery.sharrre.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     <script type="text/javascript">
         $(".decimalnumberprevent").on("keypress", function (evt) {
             if (evt.which != 8 && evt.which != 0 && evt.which != 46 && evt.which < 48 || evt.which > 57)

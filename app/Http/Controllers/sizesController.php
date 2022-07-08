@@ -33,11 +33,11 @@ class sizesController extends Controller
         // print_r($request->post());
         // die();
 
-        $size=$request->post('size');
-        $nos=$request->post('nos');
-        $squareFeet=$request->post('squareFeet');
-        $cust_id = $request->post('cust_id');
-        $landmark = $request->post('landmark');
+        $size=$request->input('size');
+        $nos=$request->input('nos');
+        $squareFeet=$request->input('squareFeet');
+        $cust_id = $request->input('cust_id');
+        $landmark = $request->input('landmark');
 
         $sizeData = new size;
 

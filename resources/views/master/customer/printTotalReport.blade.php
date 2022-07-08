@@ -61,7 +61,7 @@
                             </td>
                             <td>{{ $value->wallRent }}</td>
                         </tr>
-                        @if (count($totalSizes) > 1)
+                        {{-- @if (count($totalSizes) > 1)
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -71,10 +71,11 @@
                                 </td>
                                 <td></td>
                             </tr>
-                        @endif
+                        @endif --}}
 
                         
                     @endforeach
+                    
                     @php
                         $totalSquareFeet = App\size::where('landmark', $landmark)->get();
                     @endphp
