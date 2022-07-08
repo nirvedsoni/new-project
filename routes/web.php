@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('delete', ['as' => 'customer.delete', 'uses' => 'customersController@destroy']);
 
         // size 
-        Route::post('sizeStore', ['as' => 'home.sizeStore', 'uses' => 'sizesController@storee']);
+        Route::put('sizeStore', ['as' => 'home.sizeStore', 'uses' => 'sizesController@storee']);
         // Route::get('sizedelete/{id}', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
         Route::get('sizedelete', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
         Route::get('getsizes', ['as' => 'home.getsizes', 'uses' => 'sizesController@getsizes']);

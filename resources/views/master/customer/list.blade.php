@@ -171,7 +171,7 @@
                         <div class="card-body">
                             <form action="" method="POST" id="sizeform">
                                 @csrf()
-                                @method('post')
+                                @method('put')
                                 <input type="hidden" name="cust_id" id="customerId">
                                 <input type="hidden" name="landmark1" id="landmarkId">
                                 <div class="row">
@@ -241,8 +241,8 @@
 
             $.ajax({
                 url: "sizeStore",
-                data: $('form').serialize(),
-                type: 'post',
+                data: $('#sizeform').serialize(),
+                type: 'put',
                 success: function(result) {
                     // alert(result);
                     // if (result) {
