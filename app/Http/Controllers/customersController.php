@@ -43,16 +43,16 @@ class customersController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData = $request->validate([
-            'customerName' => ['required'],
-            'address' => ['required'],
-            'landmark' => ['required'],
-            'wallNo' => ['required'],
-            'state' => ['required'],
-            'City' => ['required'],
-            'advDate' => ['required'],
-            'wallRent' => ['required'],
-        ]);
+        // $validatedData = $request->validate([
+        //     'customerName' => ['required'],
+        //     'address' => ['required'],
+        //     'landmark' => ['required'],
+        //     'wallNo' => ['required'],
+        //     'state' => ['required'],
+        //     'City' => ['required'],
+        //     'advDate' => ['required'],
+        //     'wallRent' => ['required'],
+        // ]);
         
         
         $custData = new customer;
@@ -140,16 +140,16 @@ class customersController extends Controller
     public function update(Request $request, customer $customer)
     {
 
-        $validatedData = $request->validate([
-            'editcustomerName' => ['required'],
-            'editaddress' => ['required'],
-            'editlandmark' => ['required'],
-            'editwallNo' => ['required'],
-            'editstate' => ['required'],
-            'editCity' => ['required'],
-            'editadvDate' => ['required'],
-            'editwallRent' => ['required'],
-        ]);
+        // $validatedData = $request->validate([
+        //     'editcustomerName' => ['required'],
+        //     'editaddress' => ['required'],
+        //     'editlandmark' => ['required'],
+        //     'editwallNo' => ['required'],
+        //     'editstate' => ['required'],
+        //     'editCity' => ['required'],
+        //     'editadvDate' => ['required'],
+        //     'editwallRent' => ['required'],
+        // ]);
         
         $cust_id = $request->input('cust_id');
         $customerName = $request->input('editcustomerName');
