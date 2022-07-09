@@ -43,16 +43,16 @@ class customersController extends Controller
     public function store(Request $request)
     {
 
-        // $validatedData = $request->validate([
-        //     'customerName' => ['required'],
-        //     'address' => ['required'],
-        //     'landmark' => ['required'],
-        //     'wallNo' => ['required'],
-        //     'state' => ['required'],
-        //     'City' => ['required'],
-        //     'advDate' => ['required'],
-        //     'wallRent' => ['required'],
-        // ]);
+        $validatedData = $request->validate([
+            'customerName' => ['required'],
+            'address' => ['required'],
+            'landmark' => ['required'],
+            'wallNo' => ['required'],
+            'state' => ['required'],
+            'City' => ['required'],
+            'advDate' => ['required'],
+            'wallRent' => ['required'],
+        ]);
         
         
         $custData = new customer;
@@ -180,6 +180,8 @@ class customersController extends Controller
             'landmark' => $landmark,
         
         ]);
+
+
 
 
         return redirect()->route('home.list');

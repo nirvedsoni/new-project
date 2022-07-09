@@ -127,12 +127,13 @@
                                                             onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
                                                             size
                                                         </button>
-                                                        <button title="Edit" 
-                                                        onclick="editCustomer({{ $items->cust_id }});"
+                                                        <button title="Edit"
+                                                            onclick="editCustomer({{ $items->cust_id }});"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-success m-1">
                                                             <i class="fa fa-pen"></i>
                                                         </button>
-                                                        <button title="Delete" onclick="deleteCustomer('{{ $items->cust_id }}');"
+                                                        <button title="Delete"
+                                                            onclick="deleteCustomer('{{ $items->cust_id }}');"
                                                             class="sh btn btn-social btn-just-icon btn-sm btn-danger">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
@@ -156,8 +157,7 @@
                     </div>
                 </div>
 
-
-                {{-- size div  --}}
+                {{-- size div --}}
 
                 <div class="col-6" id="sizeDiv" style="display:none; Position ">
                     <div class="card" style="position: fixed;">
@@ -202,8 +202,8 @@
                                 </div>
                             </form>
 
-
                             <hr>
+                            
                             <div class="row container">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
@@ -235,7 +235,7 @@
 
     @include('master.customer.edit')
 
-    
+
     <script>
         $('#sizeSubmit').click(function() {
 
@@ -263,8 +263,8 @@
 
 
                 },
-                error: function(xhr) {
-                    console.log('ggg=', xhr);
+                error: function(err) {
+                    console.log("Eroor => ", err);
                 }
             })
 
@@ -283,8 +283,8 @@
                 success: function(response) {
                     $("#searchCity").html(response);
                 },
-                error: function(xhr) {
-
+                error: function(err) {
+                    console.log("Eroor => ", err);
                 }
             });
         }
@@ -313,8 +313,8 @@
                 success: function(response) {
                     $("#customerSize").html(response);
                 },
-                error: function(xhr) {
-
+                error: function(err) {
+                    console.log("Eroor => ", err);
                 }
             });
         }
@@ -356,9 +356,8 @@
                                         }).then(function() {});
                                     }
                                 },
-                                error: function(xhr) {
-                                    console.log('dlt eror=>',xhr)
-
+                                error: function(err) {
+                                    console.log("Eroor => ", err);
                                 }
                             });
                         }
@@ -366,7 +365,7 @@
                     cancel: function() {}
                 }
             });
-            
+
         }
 
         function deleteSize(id) {
@@ -394,7 +393,8 @@
                                             text: "Size deleted!",
                                             type: "success"
                                         }).then(function() {
-                                            getSizes($("#customerId").val(), '', $("#landmarkId").val());
+                                            getSizes($("#customerId").val(), '', $(
+                                                "#landmarkId").val());
                                         });
                                     } else {
                                         swal({
@@ -404,8 +404,8 @@
                                         }).then(function() {});
                                     }
                                 },
-                                error: function(xhr) {
-
+                                error: function(err) {
+                                    console.log("Eroor => ", err);
                                 }
                             });
                         }
@@ -448,10 +448,7 @@
 
             $("#squareFeet").val(sq_feet);
         }
-
-
-
     </script>
 
-    
+
 @endsection

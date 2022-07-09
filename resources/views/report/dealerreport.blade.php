@@ -131,8 +131,8 @@
                     $.print(response);
                     console.log(response);
                 },
-                error: function(E) {
-                    console.log(E);
+                error: function(err) {
+                    console.log('eroor => ', err);
 
                 }
             });
@@ -166,7 +166,8 @@
                     $("#print").removeClass('d-none');
 
                 },
-                error: function(xhr) {
+                error: function(err) {
+                    console.log('eroor => ', err);
 
                 }
             });

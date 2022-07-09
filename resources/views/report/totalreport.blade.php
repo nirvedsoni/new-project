@@ -71,7 +71,6 @@
                             <div class="h6 pb-4">
                                 <div class="text-danger text-center">No Data</div>
                             </div>
-
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn print btn-sacondary d-none m-2 " id="print" onclick='printDiv()'>Print</button>
@@ -109,7 +108,8 @@
                     $("#totalData").html(response);
                     $("#print").removeClass('d-none');
                 },
-                error: function(xhr) {
+                error: function(err) {
+                    console.log('eroor => ', err);
 
                 }
             });
@@ -152,7 +152,8 @@
                 success: function(response) {
                     $.print(response);
                 },
-                error: function(xhr) {
+                error: function(err) {
+                    console.log('eroor => ', err);
 
                 }
             });

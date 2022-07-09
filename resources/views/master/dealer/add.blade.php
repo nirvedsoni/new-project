@@ -14,7 +14,7 @@
                             <h4 class="card-title align-self-center m-1">Dealer</h4>
                             {{-- <div class="mr-2">
                             <button type="button" data-toggle="modal" data-target="#addNozle" title="Add Nozle" class="btn btn-sm btn-warning" onclick="resetAddNozleModal();"> Add</button>
-                        </div> --}}
+                               </div> --}}
                             <div>
                                 <a href="{{ route('dealer.list') }}" class="btn btn-warning btn-round">List</a>
                             </div>

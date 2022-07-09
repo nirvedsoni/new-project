@@ -38,7 +38,7 @@
                                             <div class="col-sm-7">
                                                 <input type="text" name="customerName" value="{{ old('customerName') }}"
                                                     class="@error('customerName') is-invalid @enderror form-control"
-                                                    placeholder="Enter Customer Name">
+                                                    placeholder="Enter Customer Name" required >
                                                 @error('customerName')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -55,7 +55,7 @@
                                             <div class="col-sm-7">
                                                 <input type="text" name="address" value="{{ old('address') }}"
                                                     class="@error('address') is-invalid @enderror form-control"
-                                                    placeholder="Enter Address">
+                                                    placeholder="Enter Address" required>
                                                 @error('address')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -75,7 +75,7 @@
                                             <div class="col-sm-7">
                                                 <input type="text" name="landmark" value="{{ old('landmark') }}"
                                                     class="@error('landmark') is-invalid @enderror form-control"
-                                                    placeholder="Enter Landmark">
+                                                    placeholder="Enter Landmark" required>
                                                 @error('landmark')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -90,9 +90,9 @@
                                                 <label for="">Wall No.</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="wallNo" value="{{ old('wallNo') }}"
+                                                <input type="number" name="wallNo" value="{{ old('wallNo') }}"
                                                     class="@error('wallNo') is-invalid @enderror form-control"
-                                                    placeholder="Enter Wall No">
+                                                    placeholder="Enter Wall No" required>
                                                 @error('wallNo')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -110,7 +110,7 @@
                                                 <label for="inputState">State</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="state" id="searchState" onchange="getCities(this.value);" ;
+                                                <select name="state" id="searchState"  value="{{ old('state') }}" onchange="getCities(this.value);" required
                                                     class="@error('state') is-invalid @enderror form-control">
                                                     <option value="">Select State...</option>
                                                     @foreach ($sData as $items)
@@ -131,8 +131,8 @@
                                                 <label for="inputState">City</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="City" id="city"
-                                                    class=" @error('state') is-invalid @enderror form-control">
+                                                <select name="City" id="city" 
+                                                    class=" @error('state') is-invalid @enderror form-control" required>
                                                     <option selected  value="{{ old('city') }}">No Cities</option>
                                                 </select>
                                                 @error('City')
@@ -153,7 +153,7 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <input name="advDate" type="date" value="{{ old('advDate') }}"
-                                                    class="@error('advDate') is-invalid @enderror form-control">
+                                                    class="@error('advDate') is-invalid @enderror form-control" required>
                                                 @error('advDate')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -168,9 +168,9 @@
                                                 <label for="">Wall Rent</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="wallRent" value="{{ old('wallRent') }}"
+                                                <input type="number" name="wallRent" value="{{ old('wallRent') }}"
                                                     class="@error('wallRent') is-invalid @enderror form-control"
-                                                    placeholder="Enter Wall Rent">
+                                                    placeholder="Enter Wall Rent" required>
                                                 @error('wallRent')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

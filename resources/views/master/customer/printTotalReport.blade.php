@@ -3,14 +3,14 @@
         .print-div {
             color: black;
             /* padding: 40px 40px; */
-            padding: 80px 40px 40px;
+            padding: 50px 10px;
         }
     }
 </style>
 
 <div class="print-div">
     <div class="container">
-        <div class="head" style="border: 1px solid black;">
+        <div class="head" style="border: 1px solid rgba(167, 167, 167, 0.541);">
             <div class="row p-2" style="justify-content: center;">
                 @if (count($totalData))
                     <p class="mb-0"> LIST OF PAINTING OF YOUR HONOURABLE PRODUCT OF:</p>

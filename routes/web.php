@@ -57,8 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
     //     Route::get('delete', ['as' => 'nozle.delete', 'uses' => 'dealerController@delete']);
     // });
 
-	/*Home*/
-	/*Customer*/
+	
+	/*Customer*/ /*Home*/
     Route::prefix('home')->group(function () {
         Route::get('add', ['as' => 'home.add', 'uses' => 'customersController@add']);
         Route::get('list', ['as' => 'home.list', 'uses' => 'customersController@show']);

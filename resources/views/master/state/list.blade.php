@@ -26,7 +26,7 @@
                                                 <div class="col-sm-6">
                                                     <input type="text" name="stateName"
                                                         class="@error('stateName') is-invalid @enderror form-control"
-                                                        placeholder="Enter State Name">
+                                                        placeholder="Enter State Name" required >
                                                     @error('stateName')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -81,7 +81,7 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <select name="stateName2"
-                                                                        class="@error('stateName2') is-invalid @enderror form-control">
+                                                                        class="form-control" required>
                                                                         <option value="" selected>select your options
                                                                         </option>
                                                                         @foreach ($sData as $items)
@@ -89,9 +89,6 @@
                                                                                 {{ $items->stateName }}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                    @error('stateName2')
-                                                                        <div class="text-danger">{{ $message }}</div>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -109,11 +106,8 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <input type="text" name="cityName"
-                                                                        class="@error('cityName') is-invalid @enderror form-control"
-                                                                        placeholder="Enter City Name">
-                                                                    @error('cityName')
-                                                                        <div class="text-danger">{{ $message }}</div>
-                                                                    @enderror
+                                                                        class="form-control"
+                                                                        placeholder="Enter City Name" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -130,11 +124,8 @@
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <input type="number" name="cityCode"
-                                                                    class="@error('cityCode') is-invalid @enderror form-control"
-                                                                    placeholder="Enter City Code">
-                                                                @error('cityCode')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
+                                                                    class="form-control"
+                                                                    placeholder="Enter City Code" required>
                                                             </div>
                                                         </div>
                                                     </div>
