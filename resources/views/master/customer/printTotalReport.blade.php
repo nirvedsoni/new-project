@@ -88,15 +88,15 @@
 
                     @if ($fromDate)
                         @php
-                           $DATA =  $totalSquareFeet = App\size::whereBetween("advDate",[$fromDate, $toDate])->get();
+                           $DATA =  $totalSquareFeet ->whereBetween("advDate",[$fromDate, $toDate]);
 
-                           $TDATA =  $totalWallRent = App\customer::whereBetween("advDate",[$fromDate, $toDate])->get();
+                           $TDATA =  $totalWallRent ->whereBetween("advDate",[$fromDate, $toDate]);
 
                         @endphp
 
                     @endif
 
-                    @if (count($DATA))
+                    @if ($DATA && $TDATA)
                         <tr>
                             <td></td>
                             <td></td>
