@@ -24,7 +24,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr class="text-primary">
-                    <th scope="col">S.NO.</th>
+                    <th scope="col">W.NO.</th>
                     <th scope="col">PARTICULARS</th>
                     <th scope="col">SIZE(feet)</th>
                     <th scope="col">SQ. FEET</th>
@@ -36,11 +36,11 @@
                     @foreach ($totalData as $key => $value)
                         @php
                             $totalSizes = App\size::where('cust_id', $value->cust_id)->get();
-                        @endphp 
-                        
-                    
+                        @endphp
+
+
                         <tr>
-                            <th scope="row">{{ $key + 1 }}</th>
+                            <th scope="row">{{ $value->wallNo }}</th>
                             <td>{{ $value->customerName }}, {{ $value->address }}</td>
                             <td>
                                 @if (count($totalSizes))
@@ -72,23 +72,41 @@
                                 <td></td>
                             </tr>
                         @endif --}}
-
-                        
                     @endforeach
-                    
-                    @php
-                        $totalSquareFeet = App\size::where('landmark', $landmark)->get();
-                    @endphp
 
-                    @if (count($totalSquareFeet))
+                    @if ($landmark)
+                        @php
+                            $totalSquareFeet = App\size::where('landmark', $landmark)->get();
+                        @endphp
+                    @endif
+
+                    @if ($landmark)
+                        @php
+                            $totalWallRent = App\customer::where('landmark', $landmark)->get();
+                        @endphp
+                    @endif
+
+                    @if ($fromDate)
+                        @php
+                           $DATA =  $totalSquareFeet = App\size::whereBetween("advDate",[$fromDate, $toDate])->get();
+
+                           $TDATA =  $totalWallRent = App\customer::whereBetween("advDate",[$fromDate, $toDate])->get();
+
+                        @endphp
+
+                    @endif
+
+                    @if (count($DATA))
                         <tr>
                             <td></td>
                             <td></td>
                             <td><strong>Grand Total</strong></td>
                             <td>
-                                <strong>{{ $totalSquareFeet->sum('squareFeet') }}</strong>
+                                <strong>{{ $DATA->sum('squareFeet') }}</strong>
                             </td>
-                            <td></td>
+                            <td>
+                                <strong>{{ $TDATA->sum('wallRent') }}</strong>
+                            </td>
                         </tr>
                     @endif
                 @endif

@@ -1,7 +1,10 @@
 <style type="text/css">
-    
-
     @media print {
+
+        * {
+            font-size: 12px
+        }
+
         .print-div {
             /* color: rgb(255, 255, 255); */
             padding: 0px 0px;
@@ -10,8 +13,8 @@
 
 
         @page {
-            margin-top: 100px;
-         }
+            margin-top: 250px;
+        }
 
         .pt-2,
         .py-2 {
@@ -267,25 +270,26 @@
                     <div class="card b" style="border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
                         <div class="card-body py-0">
                             <div class="row">
-                                <div class="col-sm-8 pt-0  b-right">
-                                    <div class="row b-btm text-center">
-                                        <div class="col-sm-4 b-right">
-                                            <h5 class="color-black">{{ $value->landmark }}</h5>
+                                <div class="col-sm-9 pt-0  b-right">
+                                    @if ($key == 0)
+                                        <div class="row b-btm text-center">
+                                            <div class="col-sm-4 b-right">
+                                                <h5 class="color-black">{{ $customersData[0]->landmark }}</h5>
+                                            </div>
+                                            <div class="col-sm-4 b-right">
+                                                <h5>{{ $customersData[0]->city }}</h5>
+                                            </div>
+                                            <div class="col-sm-4 b-right">
+                                                <h5>{{ $customersData[0]->state }}</h5>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-4 b-right">
-                                            <h5>{{ $value->city }}</h5>
-                                        </div>
-                                        <div class="col-sm-4 b-right">
-                                            <h5>{{ $value->state }}</h5>
-                                        </div>
-                                    </div>
-
+                                    @endif
                                     <div class="row">
-                                        <div class="pic"style="height: 450px;">
+                                        <div class="pic"style="height: 500px;">
                                             <h1></h1>
                                         </div>
                                     </div>
-                                    <div class="row b  pt-2">
+                                    <div class="row b pt-2" style="position: absolute; Bottom:0; width:100%;">
                                         <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-sm-3">Place </div>
@@ -318,15 +322,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="row b-btm text-center">
-                                        <div class="col-sm-7 b-right">
-                                            <h5>size</h5>
+                                <div class="col-sm-3">
+                                    @if ($key == 0)
+                                        <div class="row b-btm text-center">
+                                            <div class="col-sm-7 b-right">
+                                                <h5>size</h5>
+                                            </div>
+                                            <div class="col-sm-5 b-right">
+                                                <h5>SQ.FT.</h5>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-5 b-right">
-                                            <h5>SQ.FEET</h5>
-                                        </div>
-                                    </div>
+                                    @endif
+
+
                                     @php
                                         $customerSizes = App\size::where('cust_id', $value->cust_id)->get();
                                     @endphp
@@ -353,10 +361,12 @@
                     </div>
                 </div>
 
+
                 @if ($loop->even)
-                    <div class="page-break" style="margin-top: 100px"></div>
+                    <div class="page-break"></div>
                     {{-- also use this <div style="break-after:page"></div> --}}
                 @endif
+
             </div>
         @endforeach
     @endif

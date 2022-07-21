@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'home',
+    'elementActive' => 'customerlist',
     'title' => 'Customer List',
 ])
 
@@ -73,11 +73,8 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-sm-6 mt-2">
-                                                    <label for="keyword">Name/Landmark</label>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="text" name="keyword" id="keyword" class="form-control"
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="keyword" id="keyword" placeholder="Name/Landmark/id" class="form-control"
                                                         value="{{ $keyword }}">
                                                 </div>
                                             </div>
@@ -433,10 +430,6 @@
         function calculate_sqfeet() {
             var size = $("#size").val();
             var nos = $("#nos").val();
-
-            if (!nos) {
-                nos = 0;
-            }
 
             var sq_feet = "";
             if (size) {

@@ -6,6 +6,7 @@ use App\customer;
 use App\size;
 use App\state;
 use App\city;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -18,9 +19,36 @@ class customersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("master.customer.add");
+        $sData = state::orderBy('stateName','ASC')->get();
+        $cData = city::orderBy('city_id','DESC')->get();
+
+        $currentId = 0;
+        $landmark = null;
+        $customerName = null;
+        $advDate = null;
+
+        $lastId = customer::get()->last()->cust_id;
+
+        if($request->currentId){
+            $currentId = $request->currentId;
+        }
+        if($request->landmark){
+            $landmark = $request->landmark;
+        }
+        if($request->customerName){
+            $customerName = $request->customerName;
+        }
+        if($request->advDate){
+            $advDate = $request->advDate;
+        }
+        if($request->lastId){
+            $lastId = $request->lastId;
+        }
+
+
+        return view("master.customer.add",compact("sData","cData","lastId","currentId","landmark","customerName","advDate"));
 
     }
 
@@ -40,6 +68,7 @@ class customersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
 
@@ -65,11 +94,28 @@ class customersController extends Controller
         $custData->City=$request->input('City');
         $custData->advDate=$request->input('advDate');
         $custData->wallRent=$request->input('wallRent');
-        $custData->save();
+        // $custData->save();
+        // $lastId = $custData::all()->last()->cust_id;
+        // $lastId = $custData::get()->last()->cust_id;
+        
+        $lastId = customer::get()->last()->cust_id;
 
-        $request->session()->flash('cstatus', 'New Customer added '.$custData->customerName);
-        // return redirect("home/list");
-        return redirect()->route('home.list');
+        $sData = state::orderBy('stateName','ASC')->get();
+        $cData = city::orderBy('city_id','DESC')->get();
+
+        // $all = customer::get()->last()->cust_id;
+
+        if ($custData->save()) {
+            $currentId = $custData::get()->last()->cust_id;
+            $landmark = $custData::get()->last()->landmark;
+            $customerName = $custData::get()->last()->customerName;
+            $advDate = $custData::get()->last()->advDate;
+
+        }
+
+        // return view("master.customer.add",compact("sData","cData","lastId","currentId","landmark","customerName","advDate"));
+
+        return redirect()->route("home.add",compact("sData","cData","lastId","currentId","landmark","customerName","advDate"));
 
     }
 
@@ -101,7 +147,8 @@ class customersController extends Controller
         if($keyword){
             $data = $data->where(function($query) use ($keyword){
                         $query->where("customerName","like","%" . $keyword . "%")
-                            ->orWhere("landmark","like","%" . $keyword . "%");
+                            ->orWhere("landmark","like","%" . $keyword . "%")
+                            ->orWhere("cust_id","like","%" . $keyword . "%");
                     });
         }
 
@@ -140,16 +187,6 @@ class customersController extends Controller
     public function update(Request $request, customer $customer)
     {
 
-        // $validatedData = $request->validate([
-        //     'editcustomerName' => ['required'],
-        //     'editaddress' => ['required'],
-        //     'editlandmark' => ['required'],
-        //     'editwallNo' => ['required'],
-        //     'editstate' => ['required'],
-        //     'editCity' => ['required'],
-        //     'editadvDate' => ['required'],
-        //     'editwallRent' => ['required'],
-        // ]);
         
         $cust_id = $request->input('cust_id');
         $customerName = $request->input('editcustomerName');
@@ -178,29 +215,11 @@ class customersController extends Controller
         $updateSize = size::where("cust_id",$cust_id)->update([
 
             'landmark' => $landmark,
-        
+            'advDate' => $advDate ,
+
         ]);
 
-
-
-
         return redirect()->route('home.list');
-
-
-        
-        // $updateData->cust_id = $cust_id;
-        // $updateData->customerName = $customerName;
-        // $updateData->address = $address;
-        // $updateData->landmark = $landmark;
-        // $updateData->wallNo = $wallNo;
-        // $updateData->state = $state;
-        // $updateData->city = $city;
-        // $updateData->advDate = $advDate;
-        // $updateData->wallRent = $wallRent;
-        // $updateData->update();
-        // $updateData->save();
-
-        // return response()->json($updateData, 200);
 
     }
 
@@ -221,14 +240,6 @@ class customersController extends Controller
         
     }
 
-    public function add(){
-
-        $sData = state::all();
-        $cData = city::all();
-
-
-        return view("master.customer.add",compact("sData","cData"));
-    }
 
 
 }   

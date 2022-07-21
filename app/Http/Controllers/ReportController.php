@@ -14,19 +14,20 @@ class ReportController extends Controller
 
         $data = customer::select('landmark')->groupBy('landmark')->get();
 
-        return view("report.dealerreport",["data"=> $data]);
+        return view("report.datewisereport",["data"=> $data]);
     }
     
     function totalreport(){
 
         $data = customer::select('landmark')->groupBy('landmark')->get();
         return view("report.totalreport",["data"=> $data]);
+        
     }
 
 
 
     
-    public function getDealerDetail(Request $request){
+    public function getDatewiseDetail(Request $request){
         $customerLand = $request->landmark;
         $fromDate = $request->fromDate;
         $toDate = $request->toDate;
@@ -49,7 +50,7 @@ class ReportController extends Controller
         if(count($customers)){
             foreach ($customers as $key => $value) {
                 $html .= '<tr>
-                            <th scope="row">' . ($key + 1) . '</th>
+                            <th scope="row">' . $value->wallNo . '</th>
                             <td>' . $value->customerName . '</td>
                             <td>' . $value->address . '</td>
                             <td>' . $value->landmark . '</td>
@@ -64,32 +65,6 @@ class ReportController extends Controller
             <td class="text-center text-danger" colspan="6" >Empty</td>
          </tr>';
         };
-
-        // if(count($customerSize)){
-        //        $html .= 
-        //                '<tr class="text-primary">
-        //                      <th scope="col">S.No.</th>
-        //                      <th scope="col">CUST.ID</th>
-        //                      <th scope="col">SIZE</th>
-        //                      <th scope="col">NOS</th>
-        //                      <th scope="col">SQUARE FEET</th>
-        //                      <th scope="col" class="text-center">PRINT</th>
-        //                 </tr>';
-
-        //     foreach ($customerSize as $key => $value) {
-        //         $html .= 
-        //               '<tr>
-        //                     <th scope="row">' . ($key + 1) . '</th>
-        //                     <td>' . $value->cust_id . '</td>
-        //                     <td>' . $value->size . '</td>
-        //                     <td>' . $value->nos . '</td>
-        //                     <td>' . $value->squareFeet . '</td>
-        //                     <td class="text-center">
-        //                     <input type="checkbox" class="chkSizeId" name="sizeData" value='. $value->id .'>
-        //                     </td>
-        //                 </tr>';
-        //     }
-        // }
       
         echo $html;
     }
@@ -98,11 +73,12 @@ class ReportController extends Controller
     function printcustomers(Request $request){
         $custmerIds = $request->custIds;
 
-        $customersData = customer::whereIn("cust_id",$custmerIds)->get();
+        $customersData = customer::orderBy("wallNo","ASC");
 
-        // $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
+        $customers = $customersData->whereIn("cust_id",$custmerIds)->get();
 
-        return view("master.customer.printcust",["customersData"=> $customersData]);
+
+        return view("master.customer.printcust",["customersData"=> $customers]);
 
     }
     

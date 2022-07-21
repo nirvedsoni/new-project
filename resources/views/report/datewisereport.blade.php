@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="col-sm-8">
                                             <input type="date" name="searchFromDate" id="searchFromDate"
-                                                class="form-control">
+                                                class="form-control todaysDate">
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="col-sm-8">
                                             <input type="date" name="searchToDate" id="searchToDate"
-                                                class="form-control">
+                                                class="form-control todaysDate">
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr class="text-primary">
-                                            <th scope="col">S.NO.</th>
+                                            <th scope="col">W.NO.</th>
                                             <th scope="col">Customer Name</th>
                                             <th scope="col">Customer Address</th>
                                             <th scope="col">Landmark</th>
@@ -100,85 +100,107 @@
             </div>
         </div>
     </div>
-@endsection
 
-<script>
-    function printDiv() {
-        let customerIds = new Array();
 
-        $(".chkCustomerId").each(function() {
-            if ($(this).prop("checked") == true) {
-                customerIds.push($(this).val());
+    <script>
+        $(function() {
+
+            todaysDate();
+
+            function todaysDate() {
+                let d = new Date();
+                var date = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate())
+                    .slice(-2);
+
+                document.getElementById("searchFromDate").value = date;
+                document.getElementById("searchToDate").value = date;
+                // console.log(datestring);
+
             }
+
         });
 
 
-        console.log('cust IDs=>', customerIds);
 
-        if (customerIds.length == 0) {
-            alert('Please Select Customers and size');
-        } else {
-            $.ajax({
-                url: "{{ route('report.datewisereport.print') }}",
-                type: 'get',
-                data: {
-                    'custIds': customerIds
-                },
-                beforeSend: function() {
 
-                },
-                success: function(response) {
-                    $.print(response);
-                    console.log(response);
-                },
-                error: function(err) {
-                    console.log('eroor => ', err);
+        function printDiv() {
+            let customerIds = new Array();
 
+            $(".chkCustomerId").each(function() {
+                if ($(this).prop("checked") == true) {
+                    customerIds.push($(this).val());
                 }
             });
+
+
+            console.log('cust IDs=>', customerIds);
+
+            if (customerIds.length == 0) {
+                alert('Please Select Customers and size');
+            } else {
+                $.ajax({
+                    url: "{{ route('report.datewisereport.print') }}",
+                    type: 'get',
+                    data: {
+                        'custIds': customerIds
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(response) {
+                        $.print(response);
+                        console.log(response);
+                    },
+                    error: function(err) {
+                        console.log('eroor => ', err);
+
+                    }
+                });
+            }
+            // window.print();
         }
-        // window.print();
-    }
 
 
-    function custDetail() {
 
-        let e = document.getElementById("optVal");
-        let landmarkVal = e.options[e.selectedIndex].value;
+        function custDetail() {
 
-        var fromDate = $("#searchFromDate").val();
-        var toDate = $("#searchToDate").val();
+            let e = document.getElementById("optVal");
+            let landmarkVal = e.options[e.selectedIndex].value;
 
-        if (landmarkVal) {
-            $.ajax({
-                url: "{{ route('report.datewisereport.data') }}",
-                type: 'get',
-                data: {
-                    'landmark': landmarkVal,
-                    'fromDate': fromDate,
-                    'toDate': toDate
-                },
-                beforeSend: function() {
+            var fromDate = $("#searchFromDate").val();
+            var toDate = $("#searchToDate").val();
 
-                },
-                success: function(response) {
-                    $("#customerData").html(response);
-                    $("#print").removeClass('d-none');
+            if (landmarkVal) {
+                $.ajax({
+                    url: "{{ route('report.datewisereport.data') }}",
+                    type: 'get',
+                    data: {
+                        'landmark': landmarkVal,
+                        'fromDate': fromDate,
+                        'toDate': toDate
+                    },
+                    beforeSend: function() {
 
-                },
-                error: function(err) {
-                    console.log('eroor => ', err);
+                    },
+                    success: function(response) {
+                        $("#customerData").html(response);
+                        $("#print").removeClass('d-none');
 
-                }
-            });
-        } else {
-            $("#print").addClass('d-none');
+                    },
+                    error: function(err) {
+                        console.log('eroor => ', err);
 
-            $("#customerData").html(` <tr class="text-danger">
+                    }
+                });
+            } else {
+                $("#print").addClass('d-none');
+
+                $("#customerData").html(` <tr class="text-danger">
                                                 <th class="text-center" colspan="6">Empty</th>
                                             </tr>`);
 
-        };
+            };
 
-    }
-</script>
+        }
+    </script>
+@endsection

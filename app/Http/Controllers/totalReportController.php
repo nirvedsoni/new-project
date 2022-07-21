@@ -24,11 +24,11 @@ class totalReportController extends Controller
             $totalData = $totalData->whereBetween("advDate",[$fromDate, $toDate]);
         }
 
-        $totalData = $totalData->get();
+        $totalData = $totalData->orderBy("wallNo","ASC")->get();
 
         // $customerSizes = size::whereIn("cust_id",$custmerIds)->get();
 
-        return view("master.customer.printTotalReport",["totalData"=> $totalData,"landmark"=>$customerLand]);
+        return view("master.customer.printTotalReport",["totalData"=> $totalData, "landmark"=>$customerLand, "fromDate"=>$fromDate, "toDate"=>$toDate]);
 
     }
 }

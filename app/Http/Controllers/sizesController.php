@@ -38,6 +38,7 @@ class sizesController extends Controller
         $squareFeet=$request->input('squareFeet');
         $cust_id = $request->input('cust_id');
         $landmark = $request->input('landmark');
+        $advDate = $request->input('advDate');
 
         $sizeData = new size;
 
@@ -46,6 +47,7 @@ class sizesController extends Controller
         $sizeData->squareFeet=$squareFeet;
         $sizeData->cust_id = $cust_id;
         $sizeData->landmark = $landmark;
+        $sizeData->advDate = $advDate;
         if($sizeData->save()){
             $msg = true; 
         }
@@ -53,12 +55,6 @@ class sizesController extends Controller
             $msg = false;
         }
 
-        // DB::table('sizes')->insert(array($size=>'size', $nos=>'nos', $squareFeet=>'squareFeet')); 
-
-        // $msg = "data inserted";
-
-        echo $msg;
-        
     }
 
     /**

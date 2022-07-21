@@ -15,8 +15,11 @@ class stateController extends Controller
      */
     public function index()
     {
-        $Sdata = state::all();
-        $Cdata = city::all();
+        // $Sdata = state::all();
+        // $Sdata = city::all();
+        $Sdata = state::orderBy('stateName','ASC')->get();
+        $Cdata = city::orderBy('city_id','DESC')->get();
+
 
         return view('master.state.list',["sData"=> $Sdata, "cData"=> $Cdata ]);
     }

@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        {{-- <h4 class="card-title align-self-center m-1">Total Report</h4>  --}}
+                        {{-- <h4 class="card-title align-self-center m-1">Total Report</h4> --}}
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-beyween">
@@ -73,93 +73,115 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn print btn-sacondary d-none m-2 " id="print" onclick='printDiv()'>Print</button>
+                            <button type="submit" class="btn print btn-sacondary d-none m-2 " id="print"
+                                onclick='printDiv()'>Print</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
 
-<script>
-    function totalReport() {
+    <script>
+        
+        $(function() {
+            
+            todaysDate();
 
-        let e = document.getElementById("optVal");
-        let landmarkVal = e.options[e.selectedIndex].value;
+            function todaysDate() {
+                let d = new Date();
+            var datestring = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(
+                -2);
 
-        var fromDate = $("#searchFromDate").val();
-        var toDate = $("#searchToDate").val();
+            document.getElementById("searchFromDate").value = datestring;
+            document.getElementById("searchToDate").value = datestring;
+            console.log(datestring);
 
-        if (landmarkVal) {
+            }
 
-            $.ajax({
-                url: "{{ route('report.totalreport.data') }}",
-                type: 'get',
-                data: {
-                    'landmark': landmarkVal,
-                    'fromDate': fromDate,
-                    'toDate': toDate
-                },
-                beforeSend: function() {
+        });
 
-                },
-                success: function(response) {
-                    $("#totalData").html(response);
-                    $("#print").removeClass('d-none');
-                },
-                error: function(err) {
-                    console.log('eroor => ', err);
 
-                }
-            });
 
-        } else {
-            $("#print").addClass('d-none');
 
-            $("#totalData").html(`  <div class="h6 pb-4">
+        function totalReport() {
+
+            let e = document.getElementById("optVal");
+            let landmarkVal = e.options[e.selectedIndex].value;
+
+            var fromDate = $("#searchFromDate").val();
+            var toDate = $("#searchToDate").val();
+
+            if (landmarkVal) {
+
+                $.ajax({
+                    url: "{{ route('report.totalreport.data') }}",
+                    type: 'get',
+                    data: {
+                        'landmark': landmarkVal,
+                        'fromDate': fromDate,
+                        'toDate': toDate
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(response) {
+                        $("#totalData").html(response);
+                        $("#print").removeClass('d-none');
+                    },
+                    error: function(err) {
+                        console.log('eroor => ', err);
+
+                    }
+                });
+
+            } else {
+                $("#print").addClass('d-none');
+
+                $("#totalData").html(`  <div class="h6 pb-4">
                                          <div class="text-danger text-center">No Data</div>
                                      </div>`);
 
-                                     
+
+
+            }
+
 
         }
 
+        function printDiv() {
 
-    }
+            let e = document.getElementById("optVal");
+            let landmarkVal = e.options[e.selectedIndex].value;
 
-    function printDiv() {
+            var fromDate = $("#searchFromDate").val();
+            var toDate = $("#searchToDate").val();
 
-        let e = document.getElementById("optVal");
-        let landmarkVal = e.options[e.selectedIndex].value;
+            if (landmarkVal) {
 
-        var fromDate = $("#searchFromDate").val();
-        var toDate = $("#searchToDate").val();
+                $.ajax({
+                    url: "{{ route('report.totalreport.data') }}",
+                    type: 'get',
+                    data: {
+                        'landmark': landmarkVal,
+                        'fromDate': fromDate,
+                        'toDate': toDate
+                    },
+                    beforeSend: function() {
 
-        if (landmarkVal) {
+                    },
+                    success: function(response) {
+                        $.print(response);
+                    },
+                    error: function(err) {
+                        console.log('eroor => ', err);
 
-            $.ajax({
-                url: "{{ route('report.totalreport.data') }}",
-                type: 'get',
-                data: {
-                    'landmark': landmarkVal,
-                    'fromDate': fromDate,
-                    'toDate': toDate
-                },
-                beforeSend: function() {
+                    }
+                });
 
-                },
-                success: function(response) {
-                    $.print(response);
-                },
-                error: function(err) {
-                    console.log('eroor => ', err);
-
-                }
-            });
-
-        } 
+            }
 
 
-    }
-</script>
+        }
+    </script>
+@endsection

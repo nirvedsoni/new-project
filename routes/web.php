@@ -46,40 +46,27 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('getCity', ['as' => 'city.get', 'uses' => 'cityController@getCity']);
     });
 
-	/*Dealer*/
-    // Route::prefix('dealer')->group(function () {
-    //     Route::get('add', ['as' => 'dealer.add', 'uses' => 'dealerController@add']);
-    //     Route::post('store', ['as' => 'dealer.add', 'uses' => 'dealerController@store']);
-    //     Route::get('list', ['as' => 'dealer.list', 'uses' => 'dealerController@list']);
-    //     Route::get('delete/{id}', ['as' => 'dealer.delete', 'uses' => 'dealerController@destroy']);
-    //     Route::post('store', ['as' => 'nozle.store', 'uses' => 'dealerController@store']);
-    //     Route::post('update', ['as' => 'nozle.update', 'uses' => 'dealerController@update']);
-    //     Route::get('delete', ['as' => 'nozle.delete', 'uses' => 'dealerController@delete']);
-    // });
-
 	
 	/*Customer*/ /*Home*/
     Route::prefix('home')->group(function () {
-        Route::get('add', ['as' => 'home.add', 'uses' => 'customersController@add']);
+        Route::get('add', ['as' => 'home.add', 'uses' => 'customersController@index']);
         Route::get('list', ['as' => 'home.list', 'uses' => 'customersController@show']);
-        Route::post('store', ['as' => 'home.store', 'uses' => 'customersController@store']);
+        Route::post('store', ['as' => 'home.store', 'uses' => 'customersController@store']);    
         Route::get('edit', ['as' => 'home.edit', 'uses' => 'customersController@edit']);
         Route::put('update', ['as' => 'home.update', 'uses' => 'customersController@update']);
         Route::get('delete', ['as' => 'customer.delete', 'uses' => 'customersController@destroy']);
 
         // size 
         Route::put('sizeStore', ['as' => 'home.sizeStore', 'uses' => 'sizesController@storee']);
-        // Route::get('sizedelete/{id}', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
         Route::get('sizedelete', ['as' => 'home.delete', 'uses' => 'sizesController@destroy']);
         Route::get('getsizes', ['as' => 'home.getsizes', 'uses' => 'sizesController@getsizes']);
-        // Route::get('size', ['as' => 'home.list', 'uses' => 'sizesController@index']);
 
     }); 
 
     /*Report*/
     Route::prefix('report')->group(function () {
-        Route::get('dealer-report', ['as' => 'report.datewisereport', 'uses' => 'ReportController@datewisereport']);
-        Route::get('dealer-report-data', ['as' => 'report.datewisereport.data', 'uses' => 'ReportController@getDealerDetail']);
+        Route::get('datewise-report', ['as' => 'report.datewisereport', 'uses' => 'ReportController@datewisereport']);
+        Route::get('datewise-report-data', ['as' => 'report.datewisereport.data', 'uses' => 'ReportController@getDatewiseDetail']);
         Route::get('customer-report-print', ['as' => 'report.datewisereport.print', 'uses' => 'ReportController@printcustomers']);
         Route::get('total-report', ['as' => 'report.totalreport', 'uses' => 'ReportController@totalreport']);
         Route::get('total-report-data', ['as' => 'report.totalreport.data', 'uses' => 'totalReportController@printTotalReport']);
