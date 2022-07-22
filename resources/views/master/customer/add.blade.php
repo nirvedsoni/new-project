@@ -5,6 +5,30 @@
 ])
 
 @section('content')
+    <style>
+        .form-control {
+            font-size: 18px
+        }
+
+        label {
+            font-size: 18px
+        }
+
+        .card label {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .card-title {
+            font-size: 18px
+        }
+
+        .form-group .form-control,
+        .input-group .form-control {
+            padding: 8px 8px 8px 8px;
+        }
+    </style>
+
     <div class="content">
         @if (Session::has('success'))
             <div class="alert alert-success" role="alert">
@@ -209,13 +233,13 @@
                                 @if ($allData) value="{{ $allData->cust_id }}" @endif name="cust_id"
                                 id="customerId">
                             <input type="hidden"
-                                @if ($allData) value="{{ $allData->landmark }}" @endif
-                                name="landmark" id="landmarkId">
+                                @if ($allData) value="{{ $allData->landmark }}" @endif name="landmark"
+                                id="landmarkId">
                             <input type="hidden"
                                 @if ($allData) value="{{ $allData->advDate }}" @endif name="advDate"
                                 id="advDateId">
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Nos:</label>
                                         <input required type="number" id="nos" name="nos"
@@ -230,7 +254,7 @@
                                             class="form-control" onkeyup="calculate_sqfeet();">
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Square Feet:</label>
                                         <input required type="text" id="squareFeet" name="squareFeet"

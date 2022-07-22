@@ -2,10 +2,11 @@
     @media print {
 
         * {
-            font-size: 12px
+            font-size: 17px
         }
+
         p {
-            font-size: 14px
+            font-size: 22px;
         }
 
         .print-div {
@@ -225,21 +226,21 @@
         }
 
         .b-btm {
-            border-bottom: 1px solid rgba(165, 165, 165, 0.473);
+            border-bottom: 1px solid rgba(120, 120, 120);
         }
 
         .b-right {
-            border-right: 1px solid rgba(165, 165, 165, 0.473);
+            border-right: 1px solid rgba(120, 120, 120);
             padding-top: 10px;
         }
 
         .b-left {
-            border-left: 1px solid rgba(165, 165, 165, 0.473);
+            border-left: 1px solid rgba(120, 120, 120);
 
         }
 
         .b {
-            border: 1px solid rgba(165, 165, 165, 0.473);
+            border: 1px solid rgba(120, 120, 120);
             border-radius: 0px;
         }
 
@@ -253,15 +254,25 @@
             padding-top: 0 !important;
         }
 
-        h6,
-        .h6 {
-            font-size: 1em;
+        .pr-0 {
+            padding-right: 0 !important;
+        }
+
+        .pl-0 {
+            padding-left: 0 !important;
+        }
+
+
+        .last-text {
+            font-size: 20px;
             font-weight: 700;
-            text-transform: uppercase;
+            margin-bottom: 4px;
+            /* text-transform: uppercase; */
         }
 
 
     }
+
 </style>
 
 
@@ -270,7 +281,8 @@
         @foreach ($customersData as $key => $value)
             <div class="print-div">
                 <div class="">
-                    <div class="card b" style=" margin-bottom:0px; border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
+                    <div class="card b"
+                        style=" margin-bottom:0px; border: 1px solid rgba(120, 120, 120);  border-radius: 0px; ">
                         <div class="card-body py-0">
                             <div class="row">
                                 <div class="col-sm-9 pt-0  b-right">
@@ -288,39 +300,39 @@
                                         </div>
                                     @endif
                                     <div class="row">
-                                        <div class="pic"style="height: 550px;">
+                                        <div class="pic"style="height: 580px;">
                                             <h1></h1>
                                         </div>
                                     </div>
                                     <div class="row b pt-2" style="position: absolute; Bottom:0; width:100%;">
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-sm-3">Place </div>
-                                                <div class="col-sm-9 h6">{{ $value->address }}</div>
+                                                <div class="col-sm-3 pr-0 last-text">Place </div>
+                                                <div class="col-sm-9 pl-0 last-text">{{ $value->address }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="row">
-                                                <div class="col-sm-6">wall No. </div>
-                                                <div class="col-sm-6 h6">{{ $value->wallNo }}</div>
+                                                <div class="col-sm-8 pr-0 last-text">Wall No. </div>
+                                                <div class="col-sm-4 pl-0 pr-0 last-text">{{ $value->wallNo }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-sm-3">Customer </div>
-                                                <div class="col-sm-9 h6">{{ $value->customerName }}</div>
+                                                <div class="col-sm-3 pr-0 last-text">Customer </div>
+                                                <div class="col-sm-9 pl-0 last-text">{{ $value->customerName }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="row">
-                                                <div class="col-sm-6">wall Rent </div>
-                                                <div class="col-sm-6 h6">{{ $value->wallRent }}</div>
+                                                <div class="col-sm-8 pr-0 last-text">Wall Rent </div>
+                                                <div class="col-sm-4 pl-0 pr-0 last-text">{{ $value->wallRent }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-sm-3">Date </div>
-                                                <div class="col-sm-8 h6">{{ $value->advDate }}</div>
+                                                <div class="col-sm-3 pr-0 last-text">Date </div>
+                                                <div class="col-sm-8 pl-0 last-text">{{ $value->advDate }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -329,10 +341,10 @@
                                     @if ($key == 0)
                                         <div class="row b-btm text-center">
                                             <div class="col-sm-7 b-right">
-                                                <h5>size</h5>
+                                                <h5>SIZE</h5>
                                             </div>
                                             <div class="col-sm-5 b-right">
-                                                <h5>SQ.FT.</h5>
+                                                <h5>SQ.F</h5>
                                             </div>
                                         </div>
                                     @endif
@@ -344,16 +356,17 @@
                                     @foreach ($customerSizes as $skey => $svalue)
                                         <div class="row b-left">
                                             <div class="col-sm-7 b">
-                                                <div class="text-center pt1">
-                                                    <p>{{ $svalue->size }} @if ($svalue->nos > 1)
+                                                <div class="text-center">
+                                                    <p style=" margin-bottom: 4px;">{{ $svalue->size }} @if ($svalue->nos > 1)
                                                             X {{ $svalue->nos }}
                                                         @endif
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 b">
-                                                <div class="text-center pt1">
-                                                    <p>{{ $svalue->squareFeet }}</p>
+                                                <div class="text-center">
+
+                                                    <p style=" margin-bottom: 4px;">{{ $svalue->squareFeet }}</p>
                                                 </div>
                                             </div>
                                         </div>

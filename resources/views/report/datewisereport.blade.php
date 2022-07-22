@@ -100,6 +100,9 @@
             </div>
         </div>
     </div>
+    <div id="prtData">
+
+    </div>
 
 
     <script>
@@ -149,7 +152,8 @@
                     },
                     success: function(response) {
                         $.print(response);
-                        console.log(response);
+                        // $("#prtData").html(response);
+
                     },
                     error: function(err) {
                         console.log('eroor => ', err);
