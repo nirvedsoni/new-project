@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Enter Address" required>
+                                                    placeholder="Enter Address" @if ($allData) value="{{ $allData->address }}" @endif required>
                                             </div>
                                         </div>
                                     </div>
@@ -98,12 +98,11 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <select name="state" id="searchState"
-                                                    @if ($allData) value="{{ $allData->state }}" @endif
                                                     onchange="getCities(this.value)" required class="form-control">
                                                     <option selected value="">Select State</option>
 
                                                     @foreach ($sData as $items)
-                                                        <option value="{{ $items->stateName }}">
+                                                        <option value="{{ $items->stateName }}" @if ($allData) @if($allData->state == $items->stateName) selected @endif @endif>
                                                             {{ $items->stateName }}</option>
                                                     @endforeach
                                                 </select>
@@ -119,7 +118,15 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <select name="City" id="city" class="form-control" required>
+                                                    @if(count($cData))
+                                                        <option selected value="">Select City</option>
+                                                        @foreach ($cData as $items)
+                                                            <option value="{{ $items->cityName }}" @if ($allData) @if($allData->city == $items->cityName) selected @endif @endif>
+                                                                {{ $items->cityName }}</option>
+                                                        @endforeach
+                                                    @else
                                                     <option selected value="">No Cities</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -136,7 +143,7 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <input name="advDate" id="advDate"
-                                                    @if ($allData) value="{{ $allData->advDate }}" @endif
+                                                    @if ($allData) value="{{ $allData->advDate }}" @else value="{{date('Y-m-d')}}" @endif
                                                     type="date" class="form-control" required>
                                             </div>
                                         </div>
@@ -229,11 +236,6 @@
                                 </div>
                             </div>
                         </form>
-                        <p class="text-center" colspan="5">
-                            @if ($allData)
-                                {{ $allData }}
-                            @endif
-                        </p>
                     </div>
                 </div>
             </div>
@@ -285,16 +287,16 @@
             var size = $("#customerId").val();
             var nos = $("#landmarkId").val();
 
-            todaysDate2();
+            // todaysDate2();
 
-            function todaysDate2() {
-                let d = new Date();
-                var datestring = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d
-                    .getDate()).slice(
-                    -2);
-                document.getElementById("advDate").value = datestring;
+            // function todaysDate2() {
+            //     let d = new Date();
+            //     var datestring = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d
+            //         .getDate()).slice(
+            //         -2);
+            //     document.getElementById("advDate").value = datestring;
 
-            }
+            // }
 
             getSizes($("#customerId").val(), '', $("#landmarkId").val());
 
@@ -352,22 +354,24 @@
             //     document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
             // }
 
-            $.ajax({
-                url: "{{ route('home.getsizes') }}",
-                type: 'get',
-                data: {
-                    'cust_id': cust_id
-                },
-                beforeSend: function() {
+            if(cust_id){
+                $.ajax({
+                    url: "{{ route('home.getsizes') }}",
+                    type: 'get',
+                    data: {
+                        'cust_id': cust_id
+                    },
+                    beforeSend: function() {
 
-                },
-                success: function(response) {
-                    $("#customerSize").html(response);
-                },
-                error: function(err) {
-                    console.log("Eroor => ", err);
-                }
-            });
+                    },
+                    success: function(response) {
+                        $("#customerSize").html(response);
+                    },
+                    error: function(err) {
+                        console.log("Eroor => ", err);
+                    }
+                });
+            }
         }
 
 

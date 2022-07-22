@@ -22,12 +22,13 @@ class customersController extends Controller
     public function index(Request $request)
     {
         $sData = state::orderBy('stateName','ASC')->get();
-        $cData = city::orderBy('city_id','DESC')->get();
+        // $cData = city::orderBy('city_id','DESC')->get();
 
         $lastId = customer::get()->last()->cust_id;
 
         $currentId = 0;
         $allData = null ;
+        $cData = [] ;
 
         if($request->lastId){
             $lastId = $request->lastId;
@@ -37,6 +38,8 @@ class customersController extends Controller
             $currentId = $request->currentId;
 
             $allData = customer::where("cust_id",$currentId)->first();
+
+            $cData = city::where("cityName",$allData->city)->orderBy('city_id','DESC')->get();
             
         }
         // if($request->customerName){
