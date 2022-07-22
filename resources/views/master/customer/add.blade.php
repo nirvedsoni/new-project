@@ -50,14 +50,16 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Enter Address" @if ($allData) value="{{ $allData->address }}" @endif required>
+                                                    placeholder="Enter Address"
+                                                    @if ($allData) value="{{ $allData->address }}" @endif
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row justify-content-center ">
+                            <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="row">
@@ -97,12 +99,14 @@
                                                 <label for="inputState">State</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="state" id="searchState"
-                                                    onchange="getCities(this.value)" required class="form-control">
+                                                <select name="state" id="searchState" onchange="getCities(this.value)"
+                                                    required class="form-control">
                                                     <option selected value="">Select State</option>
 
                                                     @foreach ($sData as $items)
-                                                        <option value="{{ $items->stateName }}" @if ($allData) @if($allData->state == $items->stateName) selected @endif @endif>
+                                                        <option value="{{ $items->stateName }}"
+                                                            @if ($allData) @if ($allData->state == $items->stateName) selected @endif
+                                                            @endif>
                                                             {{ $items->stateName }}</option>
                                                     @endforeach
                                                 </select>
@@ -118,14 +122,16 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <select name="City" id="city" class="form-control" required>
-                                                    @if(count($cData))
+                                                    @if (count($cData))
                                                         <option selected value="">Select City</option>
                                                         @foreach ($cData as $items)
-                                                            <option value="{{ $items->cityName }}" @if ($allData) @if($allData->city == $items->cityName) selected @endif @endif>
+                                                            <option value="{{ $items->cityName }}"
+                                                                @if ($allData) @if ($allData->city == $items->cityName) selected @endif
+                                                                @endif>
                                                                 {{ $items->cityName }}</option>
                                                         @endforeach
                                                     @else
-                                                    <option selected value="">No Cities</option>
+                                                        <option selected value="">No Cities</option>
                                                     @endif
                                                 </select>
                                             </div>
@@ -143,7 +149,7 @@
                                             </div>
                                             <div class="col-sm-7">
                                                 <input name="advDate" id="advDate"
-                                                    @if ($allData) value="{{ $allData->advDate }}" @else value="{{date('Y-m-d')}}" @endif
+                                                    @if ($allData) value="{{ $allData->advDate }}" @else value="{{ date('Y-m-d') }}" @endif
                                                     type="date" class="form-control" required>
                                             </div>
                                         </div>
@@ -189,12 +195,12 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        {{-- <h5 class="card-title m-0">Size Add @if ($customerName)
-                                of {{ $customerName }}
+                        <h5 class="card-title m-0" id="sizeList">Size Add @if ($allData)
+                                of {{ $allData->customerName }}
                             @endif
-                        </h5> --}}
-
+                        </h5>
                     </div>
+
                     <div class="card-body pb-5">
                         <form action="" method="POST" id="sizeform">
                             @csrf()
@@ -241,16 +247,14 @@
             </div>
             {{-- Size add --}}
 
-
             {{-- Size List --}}
-
             <div class="col-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        {{-- <h5 class="card-title m-0" id="sizeList">Size List @if ($customerName)
-                                of {{ $customerName }}
+                        <h5 class="card-title m-0" id="sizeList">Size List @if ($allData)
+                                of {{ $allData->customerName }}
                             @endif
-                        </h5> --}}
+                        </h5>
                     </div>
                     <div class="card-body">
                         <div class="row container">
@@ -277,7 +281,6 @@
                 </div>
             </div>
         </div>
-
         {{-- Size List --}}
     </div>
 
@@ -354,7 +357,7 @@
             //     document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
             // }
 
-            if(cust_id){
+            if (cust_id) {
                 $.ajax({
                     url: "{{ route('home.getsizes') }}",
                     type: 'get',
