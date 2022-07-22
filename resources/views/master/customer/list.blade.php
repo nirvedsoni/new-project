@@ -121,7 +121,7 @@
                                                     <td class="text-center">
                                                         <button title="Size"
                                                             class="btn btn-social btn-just-icon btn-sm btn-primary"
-                                                            onclick="getSizes('{{ $items->cust_id }}','{{ $items->customerName }}','{{ $items->landmark }}');">
+                                                            onclick="getSizes('{{ $items->cust_id }}','{{ base64_encode($items->customerName) }}','{{ $items->landmark }}');">
                                                             size
                                                         </button>
                                                         <button title="Edit"
@@ -295,7 +295,7 @@
             $("#customerId").val(cust_id);
             $("#landmarkId").val(landmark);
             if (customerName) {
-                document.getElementById("sizeList").innerHTML = "Size List of " + customerName;
+                document.getElementById("sizeList").innerHTML = "Size List of " + atob(customerName);
             }
 
             $.ajax({
