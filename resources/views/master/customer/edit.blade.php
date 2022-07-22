@@ -56,8 +56,7 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <input type="text" name="editlandmark" id="landmark"
-                                                class="form-control"
-                                                placeholder="Enter Landmark" required>
+                                                class="form-control" placeholder="Enter Landmark" required>
                                         </div>
                                     </div>
                                 </div>
@@ -69,8 +68,7 @@
                                             <label for="">Wall No.</label>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="number" name="editwallNo" id="wallNo"
-                                                class="form-control"
+                                            <input type="number" name="editwallNo" id="wallNo" class="form-control"
                                                 placeholder="Enter Wall No" required>
                                         </div>
                                     </div>
@@ -87,8 +85,7 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <select name="editstate" id="state"
-                                                onchange="getEditCities(this.value);"
-                                                class="form-control" required>
+                                                onchange="getEditCities(this.value);" class="form-control" required>
                                                 <option selected value="">Select State...</option>
                                                 @foreach ($states as $items)
                                                     <option value="{{ $items->stateName }}">{{ $items->stateName }}
@@ -106,8 +103,7 @@
                                             <label for="city">City</label>
                                         </div>
                                         <div class="col-sm-7">
-                                            <select name="editcity" id="city"
-                                                class="form-control" required>
+                                            <select name="editcity" id="city" class="form-control" required>
                                                 <option value="">No Cities</option>
                                             </select>
                                         </div>
@@ -125,8 +121,7 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <input name="editadvDate" type="date" id="advDate"
-                                                class="form-control"
-                                                required>
+                                                class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +134,7 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <input type="number" name="editwallRent" id="wallRent"
-                                                class="form-control"
-                                                placeholder="Enter Wall Rent" required>
+                                                class="form-control" placeholder="Enter Wall Rent" required>
                                         </div>
                                     </div>
                                 </div>
@@ -164,6 +158,9 @@
 
 
 <script>
+    
+
+
     function editCustomer($cust_id) {
 
         $('#editmodal').modal('show');
@@ -191,21 +188,6 @@
                 // $('#city').val($response[0].city);
                 $('#advDate').val($response[0].advDate);
                 $('#wallRent').val($response[0].wallRent);
-
-                // if ($response) {
-                //     swal({
-                //         title: "Alert!",
-                //         text: "Customer Updated!",
-                //         type: "success"
-                //     }).then(function() {});
-                // } else {
-                //     swal({
-                //         title: "Alert!",
-                //         text: "Someting went wrong!",
-                //         type: "error"
-                //     }).then(function() {});
-                // }
-
 
             },
             error: function(err) {
@@ -249,7 +231,6 @@
         $('#city').val('');
         $('#advDate').val('');
         $('#wallRent').val('');
-
 
     }
 </script>

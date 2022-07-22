@@ -61,17 +61,6 @@
                             </td>
                             <td>{{ $value->wallRent }}</td>
                         </tr>
-                        {{-- @if (count($totalSizes) > 1)
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td><strong>Total</strong></td>
-                                <td>
-                                    <strong>{{ $totalSizes->sum('squareFeet') }}</strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                        @endif --}}
                     @endforeach
 
                     @if ($landmark)

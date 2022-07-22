@@ -36,13 +36,8 @@
                                                 <label for="">Customer Name</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="customerName"
-                                                    value="{{ old('customerName') }}"
-                                                    class="@error('customerName') is-invalid @enderror form-control"
+                                                <input type="text" name="customerName" class="form-control"
                                                     placeholder="Enter Customer Name" required>
-                                                @error('customerName')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -54,12 +49,8 @@
                                                 <label for="">Address</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="address" value="{{ old('address') }}"
-                                                    class="@error('address') is-invalid @enderror form-control"
+                                                <input type="text" name="address" class="form-control"
                                                     placeholder="Enter Address" required>
-                                                @error('address')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -74,12 +65,10 @@
                                                 <label for="">Landmark</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="text" name="landmark" value="{{ old('landmark') }}"
-                                                    class="@error('landmark') is-invalid @enderror form-control"
-                                                    placeholder="Enter Landmark" required>
-                                                @error('landmark')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                <input type="text"
+                                                    @if ($allData) value="{{ $allData->landmark }}" @endif
+                                                    name="landmark" class="form-control" placeholder="Enter Landmark"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -91,12 +80,9 @@
                                                 <label for="">Wall No.</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="number" name="wallNo" value="{{ old('wallNo') }}"
-                                                    class="@error('wallNo') is-invalid @enderror form-control"
-                                                    placeholder="Enter Wall No" required>
-                                                @error('wallNo')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                <input type="number" name="wallNo"
+                                                    @if ($allData) value="{{ $allData->wallNo }}" @endif
+                                                    class="form-control" placeholder="Enter Wall No" required>
                                             </div>
                                         </div>
                                     </div>
@@ -111,18 +97,16 @@
                                                 <label for="inputState">State</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="state" id="searchState" value="{{ old('state') }}"
-                                                    onchange="getCities(this.value);" required
-                                                    class="@error('state') is-invalid @enderror form-control">
-                                                    <option value="">Select State...</option>
+                                                <select name="state" id="searchState"
+                                                    @if ($allData) value="{{ $allData->state }}" @endif
+                                                    onchange="getCities(this.value)" required class="form-control">
+                                                    <option selected value="">Select State</option>
+
                                                     @foreach ($sData as $items)
                                                         <option value="{{ $items->stateName }}">
                                                             {{ $items->stateName }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('state')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -134,13 +118,9 @@
                                                 <label for="inputState">City</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <select name="City" id="city"
-                                                    class=" @error('state') is-invalid @enderror form-control" required>
-                                                    <option selected value="{{ old('city') }}">No Cities</option>
+                                                <select name="City" id="city" class="form-control" required>
+                                                    <option selected value="">No Cities</option>
                                                 </select>
-                                                @error('City')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -155,12 +135,9 @@
                                                 <label for="">Adv. Date</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input name="advDate" id="advDate" type="date"
-                                                    value="{{ old('advDate') }}"
-                                                    class="@error('advDate') is-invalid @enderror form-control" required>
-                                                @error('advDate')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                <input name="advDate" id="advDate"
+                                                    @if ($allData) value="{{ $allData->advDate }}" @endif
+                                                    type="date" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -172,12 +149,9 @@
                                                 <label for="">Wall Rent</label>
                                             </div>
                                             <div class="col-sm-7">
-                                                <input type="number" name="wallRent" value="{{ old('wallRent') }}"
-                                                    class="@error('wallRent') is-invalid @enderror form-control"
-                                                    placeholder="Enter Wall Rent" required>
-                                                @error('wallRent')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                <input type="number" name="wallRent"
+                                                    @if ($allData) value="{{ $allData->wallRent }}" @endif
+                                                    class="form-control" placeholder="Enter Wall Rent" required>
                                             </div>
                                         </div>
                                     </div>
@@ -208,35 +182,46 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h5 class="card-title m-0">Size Add @if ($customerName) of {{$customerName}} @endif  </h5>
+                        {{-- <h5 class="card-title m-0">Size Add @if ($customerName)
+                                of {{ $customerName }}
+                            @endif
+                        </h5> --}}
 
                     </div>
                     <div class="card-body pb-5">
                         <form action="" method="POST" id="sizeform">
                             @csrf()
                             @method('put')
-                            <input type="hidden" value="{{ $currentId }}" name="cust_id" id="customerId">
-                            <input type="hidden" value="{{ $landmark }}" name="landmark" id="landmarkId">
-                            <input type="hidden" value="{{ $advDate }}" name="advDate" id="advDateId">
+                            <input type="hidden"
+                                @if ($allData) value="{{ $allData->cust_id }}" @endif name="cust_id"
+                                id="customerId">
+                            <input type="hidden"
+                                @if ($allData) value="{{ $allData->landmark }}" @endif
+                                name="landmark" id="landmarkId">
+                            <input type="hidden"
+                                @if ($allData) value="{{ $allData->advDate }}" @endif name="advDate"
+                                id="advDateId">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Nos:</label>
-                                        <input required type="number" id="nos" name="nos" class="form-control"
-                                            onkeyup="calculate_sqfeet();" onchange="calculate_sqfeet();" >
+                                        <input required type="number" id="nos" name="nos"
+                                            class="form-control" onkeyup="calculate_sqfeet();"
+                                            onchange="calculate_sqfeet();">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Size:</label>
-                                        <input  required type="text" id="size" name="size" class="form-control"
-                                            onkeyup="calculate_sqfeet();">
+                                        <input required type="text" id="size" name="size"
+                                            class="form-control" onkeyup="calculate_sqfeet();">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Square Feet:</label>
-                                        <input required type="text" id="squareFeet" name="squareFeet" class="form-control">
+                                        <input required type="text" id="squareFeet" name="squareFeet"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-3 align-self-center">
@@ -244,6 +229,11 @@
                                 </div>
                             </div>
                         </form>
+                        <p class="text-center" colspan="5">
+                            @if ($allData)
+                                {{ $allData }}
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
@@ -255,13 +245,16 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h5 class="card-title m-0"  id="sizeList">Size List @if ($customerName) of {{$customerName}} @endif </h5>
+                        {{-- <h5 class="card-title m-0" id="sizeList">Size List @if ($customerName)
+                                of {{ $customerName }}
+                            @endif
+                        </h5> --}}
                     </div>
                     <div class="card-body">
                         <div class="row container">
-                            <div class="table-responsive" style="overflow-y: scroll; height:200px" >
+                            <div class="table-responsive" style="overflow-y: scroll; height:200px">
                                 <table class="table table-hover">
-                                    <thead style="position:sticky; top: 0; background-color: white; z-index:999; " >
+                                    <thead style="position:sticky; top: 0; background-color: white; z-index:999; ">
                                         <tr class="text-primary">
                                             <th scope="col">Id</th>
                                             <th scope="col">Size</th>
@@ -292,10 +285,6 @@
             var size = $("#customerId").val();
             var nos = $("#landmarkId").val();
 
-
-            console.log(size);
-            console.log(nos);
-
             todaysDate2();
 
             function todaysDate2() {
@@ -308,6 +297,7 @@
             }
 
             getSizes($("#customerId").val(), '', $("#landmarkId").val());
+
 
 
         });
@@ -323,7 +313,7 @@
 
             var sq_feet = "";
             if (size) {
-                console.log(eval(size));
+                // console.log(eval(size));
                 if (size.includes("*")) {
                     sq_feet = eval(size) * nos;
                 }
@@ -380,7 +370,10 @@
             });
         }
 
+
+
         function getCities(state) {
+            // console.log(state);
             $.ajax({
                 url: "{{ route('city.get') }}",
                 type: 'get',
@@ -398,6 +391,7 @@
                 }
             });
         }
+
 
         function deleteSize(id) {
             $.confirm({

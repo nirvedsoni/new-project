@@ -13,7 +13,7 @@
 
 
         @page {
-            margin-top: 250px;
+            margin-top: 300px;
         }
 
         .pt-2,
@@ -262,11 +262,11 @@
 </style>
 
 
-<div class="pt2">
+<div class="">
     @if (count($customersData))
         @foreach ($customersData as $key => $value)
             <div class="print-div">
-                <div class="container">
+                <div class="">
                     <div class="card b" style="border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
                         <div class="card-body py-0">
                             <div class="row">
@@ -285,7 +285,7 @@
                                         </div>
                                     @endif
                                     <div class="row">
-                                        <div class="pic"style="height: 500px;">
+                                        <div class="pic"style="height: 550px;">
                                             <h1></h1>
                                         </div>
                                     </div>
@@ -342,15 +342,15 @@
                                         <div class="row b-left">
                                             <div class="col-sm-7 b">
                                                 <div class="text-center pt1">
-                                                    <h5>{{ $svalue->size }} @if ($svalue->nos > 1)
+                                                    <p>{{ $svalue->size }} @if ($svalue->nos > 1)
                                                             X {{ $svalue->nos }}
                                                         @endif
-                                                    </h5>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 b">
                                                 <div class="text-center pt1">
-                                                    <h5>{{ $svalue->squareFeet }}</h5>
+                                                    <p>{{ $svalue->squareFeet }}</p>
                                                 </div>
                                             </div>
                                         </div>
