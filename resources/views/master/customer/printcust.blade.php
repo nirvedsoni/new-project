@@ -4,6 +4,9 @@
         * {
             font-size: 12px
         }
+        p {
+            font-size: 14px
+        }
 
         .print-div {
             /* color: rgb(255, 255, 255); */
@@ -267,7 +270,7 @@
         @foreach ($customersData as $key => $value)
             <div class="print-div">
                 <div class="">
-                    <div class="card b" style="border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
+                    <div class="card b" style=" margin-bottom:0px; border: 1px solid rgba(165, 165, 165, 0.473);  border-radius: 0px; ">
                         <div class="card-body py-0">
                             <div class="row">
                                 <div class="col-sm-9 pt-0  b-right">
