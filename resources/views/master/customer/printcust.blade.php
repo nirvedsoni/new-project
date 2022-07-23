@@ -1,8 +1,9 @@
 <style type="text/css">
+
     @media print {
 
         * {
-            font-size: 17px
+            font-size: 18px
         }
 
         p {
@@ -15,9 +16,8 @@
             margin: 0px 0px;
         }
 
-
         @page {
-            margin-top: 300px;
+            margin-top: 250px;
         }
 
         .pt-2,
@@ -35,7 +35,6 @@
 
         .page-break {
             page-break-after: always;
-            padding-top: 50px;
         }
 
         .table-bordered thead tr th,
@@ -231,7 +230,6 @@
 
         .b-right {
             border-right: 1px solid rgba(120, 120, 120);
-            padding-top: 10px;
         }
 
         .b-left {
@@ -263,10 +261,17 @@
         }
 
 
-        .last-text {
-            font-size: 20px;
+        .head-text {
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin: 2px;
+            text-transform: uppercase;
+        }
+
+        .last-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0px;
             /* text-transform: uppercase; */
         }
 
@@ -288,23 +293,22 @@
                                 <div class="col-sm-9 pt-0  b-right">
                                     @if ($key == 0)
                                         <div class="row b-btm text-center">
-                                            <div class="col-sm-4 b-right">
-                                                <h5 class="color-black">{{ $customersData[0]->landmark }}</h5>
+                                            <div class="col-sm-4 b-right ">
+                                                <p class="head-text">{{ $customersData[0]->landmark }}</p>
                                             </div>
                                             <div class="col-sm-4 b-right">
-                                                <h5>{{ $customersData[0]->city }}</h5>
+                                                <p class="head-text">{{ $customersData[0]->city }}</p>
                                             </div>
                                             <div class="col-sm-4 b-right">
-                                                <h5>{{ $customersData[0]->state }}</h5>
+                                                <p class="head-text">{{ $customersData[0]->state }}</p>
                                             </div>
                                         </div>
                                     @endif
                                     <div class="row">
-                                        <div class="pic"style="height: 580px;">
-                                            <h1></h1>
+                                        <div class="pic" style="height: 620px;">
                                         </div>
                                     </div>
-                                    <div class="row b pt-2" style="position: absolute; Bottom:0; width:100%;">
+                                    <div class="row b" style="position: absolute; Bottom:0; width:100%;">
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-3 pr-0 last-text">Place </div>
@@ -341,10 +345,10 @@
                                     @if ($key == 0)
                                         <div class="row b-btm text-center">
                                             <div class="col-sm-7 b-right">
-                                                <h5>SIZE</h5>
+                                                <p class="head-text" >SIZE</p>
                                             </div>
                                             <div class="col-sm-5 b-right">
-                                                <h5>SQ.F</h5>
+                                                <p class="head-text" >SQ.FT.</p>
                                             </div>
                                         </div>
                                     @endif

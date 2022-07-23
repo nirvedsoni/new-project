@@ -22,7 +22,6 @@ class customersController extends Controller
     public function index(Request $request)
     {
         $sData = state::orderBy('stateName','ASC')->get();
-        // $cData = city::orderBy('city_id','DESC')->get();
 
         $lastId = customer::get()->last()->cust_id;
 
@@ -42,29 +41,6 @@ class customersController extends Controller
             $cData = city::where("cityName",$allData->city)->orderBy('city_id','DESC')->get();
             
         }
-        // if($request->customerName){
-        //     $customerName = $request->customerName;
-        // }
-        // if($request->landmark){
-        //     $landmark = $request->landmark;
-        // }
-        // if($request->wallNo){
-        //     $wallNo = $request->wallNo;
-        // }
-        // if($request->state){
-        //     $state = $request->state;
-        // }
-        // if($request->City){
-        //     $City = $request->City;
-        // }
-        // if($request->advDate){
-        //     $advDate = $request->advDate;
-        // }
-        // if($request->wallRent){
-        //     $wallRent = $request->wallRent;
-        // }
-        
-        // return view("master.customer.add",compact("sData","cData","lastId","currentId","customerName","landmark","wallNo","state","City","advDate","wallRent"));
 
         return view("master.customer.add",compact("sData","cData","lastId","currentId","allData"));
 
@@ -102,8 +78,6 @@ class customersController extends Controller
         $custData->advDate=$request->input('advDate');
         $custData->wallRent=$request->input('wallRent');
         // $custData->save();
-        // $lastId = $custData::all()->last()->cust_id;
-        // $lastId = $custData::get()->last()->cust_id;
         
         $lastId = customer::get()->last()->cust_id;
 
@@ -114,19 +88,8 @@ class customersController extends Controller
 
         if ($custData->save()) {
             $currentId = $custData::get()->last()->cust_id;
-            // $customerName = $custData::get()->last()->customerName;
-            // $landmark = $custData::get()->last()->landmark;
-            // $wallNo = $custData::get()->last()->wallNo;
-            // $state = $custData::get()->last()->state;
-            // $City = $custData::get()->last()->City;
-            // $advDate = $custData::get()->last()->advDate;
-            // $wallRent = $custData::get()->last()->wallRent;
 
         }
-
-        // return view("master.customer.add",compact("sData","cData","lastId","currentId","landmark","customerName","advDate"));
-
-        // return redirect()->route("home.add",compact("sData","cData","lastId","currentId","customerName","landmark","wallNo","state","City","advDate","wallRent"));
 
         return redirect()->route("home.add",compact("sData","cData","lastId","currentId"));
 
@@ -168,8 +131,6 @@ class customersController extends Controller
         $data = $data->paginate(10);
 
         $states = state::orderBy("stateName","ASC")->get();
-
-        //    $this->add($state,$cities,$searchState,$searchCity);
 
         return view('master.customer.list',compact("data","states","cities","searchState","searchCity","keyword"));
         
@@ -252,7 +213,6 @@ class customersController extends Controller
 
         
     }
-
 
 
 }   
